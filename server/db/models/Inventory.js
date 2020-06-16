@@ -20,13 +20,20 @@ const Inventory = db.define('inventory', {
   },
   stock: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      min: 0
+    }
   },
   imageUrl: {
     type: Sequelize.STRING,
+    allownull: false,
     validate: {
       notEmpty: true
-    }
+    },
+    defaultValue:
+      'https://www.lacquester.com/wp-content/uploads/2017/03/EmptyBottleNew.png'
   }
 })
 module.exports = Inventory
