@@ -1,0 +1,58 @@
+Team 8: Irina, Naomi, Vicky
+
+GraceShopper
+
+*This document describes our team social contract for this project*
+Reference Establishing Norms
+
+Roles:
+-Taskmaster - responsible for the project board (Day 1 Irina)
+-Gitmaster - review or assign reviewer to PRs that day (Day 1 Naomi)
+-Testmaster - assign who writes what tests (Day 1 Vicky)
+
+Daily process
+Morning standup started by yesterday's Taskmaster (at 11:00 am)
+Roles assigned in circular rotation
+Yesterday? Today? Obstacles? (by today’s Taskmaster)
+Pair program on more difficult tasks that group agrees a pair would be beneficial
+Record issues that are non-blocking and discuss right after lunch at re-group meeting
+Bring up any blocking issues within team after 30 minutes of spinning your wheels (or earlier if team member feels really stuck)
+If team is stuck for 30 minutes, ask fellow/instructor for help
+At 2:30pm have re-group meeting where you check-in with blockers, status updates and plan for EOD merge
+Immediately prior to end of day make applicable PRs, review each other’s code and merge into master
+Commit frequently!
+
+Team expectations
+Each of us reserves the rights to our nights and weekends, and we have all been straightforward about when and how we can commit to working on the project. Unless we all agree on working over afterhours.
+If you have a blocking issue, slack/raise hand before interrupting another’s train of coding-thought
+None of us will specialize in terms of front-end and back-end code!
+Share the mic, ask for others’ opinions
+Disagree often and discuss -- argue infrequently
+Consult the group before you change what you are working on/  if you start a new task
+Commit whenever a new piece of code is working/functioning correctly
+When merging, submit a pull request and wait for your reviewer to review it.
+Ask for teammate help when you’ve tried to solve something for 20+ minutes.  Ask for instructor/fellow help after we’ve all given a try/researched or when two people are ready to give up.
+Pairing: we will pair based on whoever isn’t the taskmaster. The pair can work based on this guideline.
+After hours: Anytime outside of 9:30am-6pm Mon-Fri, Sat+Sun.  It’s okay to work after hours on tasks you’ve ALREADY been assigned during standup.
+How to keep the team informed: Slack!
+
+Issues
+If the group is divided on a certain decision we will take the following steps:
+Take 10-15 minute break
+List out the pros / cons, vote on the issue as a team.
+Escalate to a fellow or instructor if we cannot resolve internally
+If you are frustrated or frustrated with someone on the team
+Ask for a break.
+Reach out directly to the person you are frustrated with and chat about it using the guidelines below.
+Talk constructively about actionable items (e.g. raise your hand instead of interrupting, let me learn and struggle until I ask you for help, etc.)
+Bring in a 3rd party (e.g. fellow, instructor) to mediate if you feel too frustrated
+
+PROJECT TITLE: Grace Shopper
+OVERVIEW: An e-commerce website
+MVP:
+Deployed
+All products view
+Add to and edit cart
+Checkout
+Backend data validations
+Rudiments of security
