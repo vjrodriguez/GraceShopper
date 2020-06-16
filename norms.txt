@@ -11,7 +11,7 @@ Roles:
 -Testmaster - assign who writes what tests (Day 1 Vicky)
 
 Daily process
-Morning standup started by yesterday's Taskmaster (at 10:45 am)
+Morning standup started by yesterday's Taskmaster (at 11:00 am)
 Roles assigned in circular rotation
 Yesterday? Today? Obstacles? (by today’s Taskmaster)
 Pair program on more difficult tasks that group agrees a pair would be beneficial
