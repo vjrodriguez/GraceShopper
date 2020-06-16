@@ -28,11 +28,11 @@ const dummyUsers = [
   }
 ]
 
-const dummyCarts = [
-  {quantity: 3, status: 'active'},
-  {quantity: 3, status: 'inactive'},
-  {quantity: 3, status: 'active'}
-]
+// const dummyCarts = [
+//   {quantity: 3, status: 'active'},
+//   {quantity: 3, status: 'inactive'},
+//   {quantity: 3, status: 'active'}
+// ]
 
 const dummyInventories = [
   {
@@ -74,14 +74,14 @@ async function seed() {
   console.log('db synced!')
   const users = await Promise.all(dummyUsers.map(user => User.create(user)))
 
-  const carts = await Promise.all(dummyCarts.map(cart => Cart.create(cart)))
+  //const carts = await Promise.all(dummyCarts.map(cart => Cart.create(cart)))
 
   const inventories = await Promise.all(
     dummyInventories.map(inventory => Inventory.create(inventory))
   )
 
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${carts.length} carts`)
+  //console.log(`seeded ${carts.length} carts`)
   console.log(`seeded ${inventories.length} inventories`)
   console.log(`seeded successfully`)
 }
