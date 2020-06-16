@@ -28,7 +28,7 @@ const Inventory = db.define('inventory', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    allownull: false,
+    allowNull: false,
     validate: {
       notEmpty: true
     },
