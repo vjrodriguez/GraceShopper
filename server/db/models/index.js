@@ -4,10 +4,10 @@ const Inventory = require('./inventory')
 const Cart = require('./cart')
 const Order = require('./order')
 
-User.hasMany(Order)
 Order.belongsTo(User)
+User.hasMany(Order)
 
-User.hasMany(Inventory, {through: Cart})
+User.belongsToMany(Inventory, {through: Cart})
 Inventory.belongsToMany(User, {through: Cart})
 
 /**
