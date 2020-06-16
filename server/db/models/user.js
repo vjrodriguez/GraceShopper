@@ -3,9 +3,41 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      isEmail: true
+    }
+  },
+  birthday: {
+    type: Sequelize.DATE,
+    allowNull: true
+  },
+  address: {
+    type: Sequelize.STRING
+  },
+  country: {
+    type: Sequelize.STRING
+  },
+  State: {
+    type: Sequelize.STRING
+  },
+  zipCode: {
+    type: Sequelize.STRING
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
     allowNull: false
   },
   password: {
@@ -68,3 +100,5 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+
+module.exports = User
