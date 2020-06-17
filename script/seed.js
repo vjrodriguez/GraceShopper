@@ -1,8 +1,6 @@
 'use strict'
 const db = require('../server/db')
-const {User} = require('../server/db/models')
-const {Cart} = require('../server/db/models')
-const {Inventory} = require('../server/db/models')
+const {User, Cart, Inventory} = require('../server/db/models')
 
 const dummyUsers = [
   {
@@ -25,14 +23,21 @@ const dummyUsers = [
     email: 'irina@polishd.com',
     isAdmin: false,
     password: 'irina123'
+  },
+  {
+    firstName: 'Cody',
+    lastName: 'Pug',
+    email: 'cody@email.com',
+    isAdmin: true,
+    password: '12345!'
   }
 ]
 
-// const dummyCarts = [
-//   {quantity: 3, status: 'active'},
-//   {quantity: 3, status: 'inactive'},
-//   {quantity: 3, status: 'active'}
-// ]
+const dummyCarts = [
+  {quantity: 3, status: 'active'},
+  {quantity: 3, status: 'inactive'},
+  {quantity: 3, status: 'active'}
+]
 
 const dummyInventories = [
   {
@@ -79,6 +84,37 @@ async function seed() {
   const inventories = await Promise.all(
     dummyInventories.map(inventory => Inventory.create(inventory))
   )
+  const cody = await User.findOne({
+    where: {
+      firstName: 'Cody'
+    }
+  })
+  const naomi = await User.findOne({
+    where: {
+      firstName: 'Naomi'
+    }
+  })
+  const vicky = await User.findOne({
+    where: {
+      firstName: 'Vicky'
+    }
+  })
+  const irina = await User.findOne({
+    where: {
+      firstName: 'Irina'
+    }
+  })
+
+  const allPolish = await Inventory.findAll()
+  await cody.addInventory(allPolish[0])
+  await cody.addInventory(allPolish[1])
+  await cody.addInventory(allPolish[2])
+  await naomi.addInventory(allPolish[1])
+  await naomi.addInventory(allPolish[2])
+  await vicky.addInventory(allPolish[3])
+  await vicky.addInventory(allPolish[0])
+  await irina.addInventory(allPolish[3])
+  await irina.addInventory(allPolish[4])
 
   console.log(`seeded ${users.length} users`)
   //console.log(`seeded ${carts.length} carts`)
