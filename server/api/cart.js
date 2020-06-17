@@ -1,11 +1,12 @@
 const router = require('express').Router()
-const {Cart} = require('../db/models')
+const {Cart, Inventory, User} = require('../db/models')
 
 //Get a user's cart
 router.get('/:userId', async (req, res, next) => {
   try {
-    const userCartItems = Cart.findAll({
-      where: {userId: req.params.userId}
+    const userCartItems = await User.findAll({
+      where: {id: req.params.userId},
+      include: Inventory
     })
     res.json(userCartItems)
   } catch (error) {
@@ -16,7 +17,7 @@ router.get('/:userId', async (req, res, next) => {
 //Update a user's cart to reflect a change in quantity OR that the item has been purchased
 router.put('/:userId/:itemId', async (req, res, next) => {
   try {
-    const [numOfUpdatedItems, updatedItem] = await Cart.upate(
+    const [numOfUpdatedItems, updatedItem] = await Cart.update(
       {
         quantity: req.body.quantity,
         status: req.body.status
@@ -46,10 +47,19 @@ router.delete('/:userId/:itemId', async (req, res, next) => {
 })
 
 //Add an item to a user's cart
-// router.post('/:userId/:itemId', async (req, res, next) => {
-//   try {
-//     console.log('hi')
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+
+//Will need to check that stock is not zero
+router.post('/:userId/:itemId', async (req, res, next) => {
+  try {
+    const newCartItem = await Cart.create({
+      userId: req.params.userId,
+      inventoryId: req.params.itemId,
+      quantity: req.body.quantity
+    })
+    res.json(newCartItem)
+  } catch (error) {
+    next(error)
+  }
+})
+
+module.exports = router
