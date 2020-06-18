@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Inventory = db.define('inventory', {
+const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -11,7 +11,7 @@ const Inventory = db.define('inventory', {
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   colorFamily: {
@@ -27,7 +27,7 @@ const Inventory = db.define('inventory', {
     }
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
     validate: {
       notEmpty: true
@@ -36,4 +36,4 @@ const Inventory = db.define('inventory', {
       'https://www.lacquester.com/wp-content/uploads/2017/03/EmptyBottleNew.png'
   }
 })
-module.exports = Inventory
+module.exports = Product
