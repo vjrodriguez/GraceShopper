@@ -12,10 +12,10 @@ export const getSingleProduct = id => async dispatch => {
   dispatch(setProduct(data))
 }
 
-export default function(state = {}, action) {
+export default function productReducer(state = {}, action) {
   switch (action.type) {
     case SET_PRODUCT:
-      return action.product
+      return {singleProduct: action.product}
 
     default:
       return state

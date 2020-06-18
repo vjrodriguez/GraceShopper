@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {getSingleProduct} from '../store/singleProduct'
 
 export class SingleProduct extends React.Component {
   render() {
@@ -30,3 +32,17 @@ export class SingleProduct extends React.Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    product: state.product.singleProduct
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getSingleProduct: id => dispatch(getSingleProduct(id))
+  }
+}
+
+export default connect(mapState, mapDispatch)(SingleProduct)
