@@ -14,7 +14,13 @@ export class Checkout extends Component {
   render() {
     return (
       <div>
-        <Header as="h1">Shipping and Billing </Header>
+        <Header as="h1">Order Summary</Header>
+        <div>
+          <Segment inverted>
+            <h2>Order total:</h2>{' '}
+          </Segment>
+        </div>
+        <Header as="h1">Shipping and Billing</Header>
         <Segment inverted>
           <Form inverted>
             <Form.Group widths="equal">
@@ -36,8 +42,7 @@ export class Checkout extends Component {
                 label="CARD NUMBER"
                 placeholder="xxxx-xxxx-xxxx-xxxx"
               />
-              <Form.Input fluid label="CVC" placeholder="CVC" />
-              <Form.Input fluid label="EXPIRATION" placeholder="" />
+              <Form.Input fluid label="CVC" placeholder="CVC" />s
             </Form.Group>
             <Form.Checkbox label="I agree to the Terms and Conditions" />
             <Button type="submit">Confirm Purchase</Button>
