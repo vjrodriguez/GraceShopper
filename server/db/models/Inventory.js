@@ -1,3 +1,4 @@
+//file name should begin with lowercase
 const Sequelize = require('sequelize')
 const db = require('../db')
 
