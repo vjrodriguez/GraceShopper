@@ -18,7 +18,7 @@ const User = db.define('user', {
     }
   },
   email: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     unique: true,
     allowNull: false,
     validate: {
@@ -31,7 +31,7 @@ const User = db.define('user', {
     allowNull: true
   },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   country: {
     type: Sequelize.STRING
