@@ -19,3 +19,19 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.vertical > button.ui.icon.button.quantity-selection {
+  padding: 0.2em;
+}
+
+input.quantity-selection {
+  width: 4em;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
