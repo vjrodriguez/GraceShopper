@@ -1,6 +1,6 @@
 'use strict'
 const db = require('../server/db')
-const {User, Cart, Inventory} = require('../server/db/models')
+const {User, Product} = require('../server/db/models')
 
 const dummyUsers = [
   {
@@ -30,15 +30,22 @@ const dummyUsers = [
     email: 'cody@email.com',
     isAdmin: true,
     password: '12345!'
+  },
+  {
+    firstName: 'Kate',
+    lastName: 'Norton',
+    email: 'kate@polishd.com',
+    isAdmin: false,
+    password: 'Kate123'
   }
 ]
 
-const dummyInventories = [
+const dummyProducts = [
   {
     name: 'lady like',
     description:
       'etiquette, posture, protocol. did we miss anything? oh, yes, this elegant soft mauve nail lacquer. this dainty darling is just the thing for a proper manicure.',
-    price: 9.0,
+    price: 900,
     colorFamily: 'reds',
     stock: 20
   },
@@ -46,7 +53,7 @@ const dummyInventories = [
     name: 'living legend',
     description:
       'recognized is your middle name in this longwear, rich risk-taking crimson – everyone will be vying for your cover photo. step 1: apply two coats of gel couture color.  step 2: apply gel couture top coat.',
-    price: 11.5,
+    price: 1150,
     colorFamily: 'red',
     stock: 75
   },
@@ -54,7 +61,7 @@ const dummyInventories = [
     name: 'wild card',
     description:
       'you’re pretty tricky in a vibrant sapphire blue nail polish with a velvet matte finish. (matte)',
-    price: 9.0,
+    price: 900,
     colorFamily: 'bluess',
     stock: 99
   },
@@ -62,7 +69,7 @@ const dummyInventories = [
     name: 'dye-mentions',
     description:
       'all the angles. all the answers. there’s just no stopping this multifaceted, genius powder blue nail polish. step 1: apply two coats of gel couture color.  step 2: apply gel couture top coat.',
-    price: 11.5,
+    price: 1150,
     colorFamily: 'greens',
     stock: 80
   }
@@ -75,8 +82,8 @@ async function seed() {
 
   //const carts = await Promise.all(dummyCarts.map(cart => Cart.create(cart)))
 
-  const inventories = await Promise.all(
-    dummyInventories.map(inventory => Inventory.create(inventory))
+  const products = await Promise.all(
+    dummyProducts.map(product => Product.create(product))
   )
   const cody = await User.findOne({
     where: {
@@ -99,19 +106,27 @@ async function seed() {
     }
   })
 
-  const allPolish = await Inventory.findAll()
-  await cody.addInventory(allPolish[0])
-  await cody.addInventory(allPolish[1])
-  await cody.addInventory(allPolish[2])
-  await naomi.addInventory(allPolish[1])
-  await naomi.addInventory(allPolish[2])
-  await vicky.addInventory(allPolish[3])
-  await vicky.addInventory(allPolish[0])
-  await irina.addInventory(allPolish[3])
-  await irina.addInventory(allPolish[4])
+  const allPolish = await Product.findAll()
+  const codysOrder = await cody.createOrder()
+
+  await codysOrder.addProduct(allPolish[0])
+  await codysOrder.addProduct(allPolish[1])
+  await codysOrder.addProduct(allPolish[2])
+
+  const naomisOrder = await naomi.createOrder()
+  await naomisOrder.addProduct(allPolish[1])
+  await naomisOrder.addProduct(allPolish[2])
+
+  const vickysOrder = await vicky.createOrder()
+  await vickysOrder.addProduct(allPolish[3])
+  await vickysOrder.addProduct(allPolish[0])
+
+  const irinasOrder = await irina.createOrder()
+  await irinasOrder.addProduct(allPolish[3])
+  await irinasOrder.addProduct(allPolish[4])
 
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${inventories.length} inventories`)
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
 
