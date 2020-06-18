@@ -81,7 +81,7 @@ const createApp = () => {
     }
   })
 
-  // sends index.html
+  // sends
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'))
   })
@@ -97,7 +97,7 @@ const createApp = () => {
 const startListening = () => {
   // start listening (and create a 'server' object representing our server)
   const server = app.listen(PORT, () =>
-    console.log(`Mixing it up on port ${PORT}`)
+    console.log(`Polishing it up on port ${PORT}`)
   )
 
   // set up our socket control center

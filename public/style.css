@@ -35,3 +35,13 @@ input.quantity-selection {
   justify-content: space-around;
   align-items: center;
 }
+
+#page-title-home {
+  font-family: 'Megrim', cursive;
+  padding-bottom: 0.3em;
+  font-size: 5em;
+}
+
+#homepage-banner {
+  height: 14em;
+}
