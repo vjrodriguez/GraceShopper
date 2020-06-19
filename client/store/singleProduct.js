@@ -9,13 +9,14 @@ export const setProduct = product => ({
 
 export const getSingleProduct = id => async dispatch => {
   const {data} = await axios.get(`/api/products/${id}`)
+  console.log('DATAAA', data)
   dispatch(setProduct(data))
 }
 
 export default function productReducer(state = {}, action) {
   switch (action.type) {
     case SET_PRODUCT:
-      return {singleProduct: action.product}
+      return {product: action.product}
 
     default:
       return state
