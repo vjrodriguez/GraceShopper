@@ -6,7 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import AllProducts from './components/AllProducts'
 import {me} from './store'
 import OrderConfirmation from './components/OrderConfirmation'
-import Checkout from './components/Checkout'
+import Checkout from './components/checkout'
 import Cart from './components/cart'
 import {Homepage} from './components/home'
 
