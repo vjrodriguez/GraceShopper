@@ -17,10 +17,11 @@ export class Checkout extends Component {
         <Header as="h1">Order Summary</Header>
         <div>
           <Segment inverted>
-            <h2>Order total:</h2>{' '}
+            <h3>order quantity: </h3>
+            <h3>order total: </h3>
           </Segment>
         </div>
-        <Header as="h1">Shipping and Billing</Header>
+        <Header as="h1">Shipping and Billing Info</Header>
         <Segment inverted>
           <Form inverted>
             <Form.Group widths="equal">
@@ -28,9 +29,16 @@ export class Checkout extends Component {
               <Form.Input fluid label="Last name" placeholder="Last name" />
             </Form.Group>
             <Form.Group widths="equal">
-              <Form.Input fluid label="ADDRESS" placeholder="Address" />
-              <Form.Input fluid label="CITY" placeholder="City" />
-              <Form.Input fluid label="STATE" placeholder="i.e.NY" />
+              <Form.Input
+                fluid
+                label="SHIPPING ADDRESS"
+                placeholder="street address"
+              />
+              <Form.Input
+                fluid
+                label="CITY, STATE"
+                placeholder="i.e. New York, NY"
+              />
             </Form.Group>
             <Form.Group widths="equal">
               <Form.Input fluid label="ZIP CODE" placeholder="Zip" />
@@ -45,7 +53,7 @@ export class Checkout extends Component {
               <Form.Input fluid label="CVC" placeholder="CVC" />s
             </Form.Group>
             <Form.Checkbox label="I agree to the Terms and Conditions" />
-            <Button type="submit">Confirm Purchase</Button>
+            <Button type="submit">Place Order</Button>
           </Form>
         </Segment>
       </div>
