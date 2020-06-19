@@ -53,7 +53,7 @@ export class Checkout extends Component {
                   label="CARD NUMBER"
                   placeholder="xxxx-xxxx-xxxx-xxxx"
                 />
-                <Form.Input fluid label="CVC" placeholder="CVC" />s
+                <Form.Input fluid label="CVC" placeholder="CVC" />
               </Form.Group>
               <Form.Checkbox label="I agree to the Terms and Conditions" />
               <Button type="submit">Place Order</Button>
