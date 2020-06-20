@@ -9,11 +9,10 @@ export const setProduct = product => ({
 
 export const getSingleProduct = id => async dispatch => {
   const {data} = await axios.get(`/api/products/${id}`)
-  console.log('DATAAA', data)
   dispatch(setProduct(data))
 }
 
-export default function productReducer(state = {}, action) {
+export default function(state = {}, action) {
   switch (action.type) {
     case SET_PRODUCT:
       return {product: action.product}
