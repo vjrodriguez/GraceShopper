@@ -35,40 +35,44 @@ router.get('/', async (req, res, next) => {
 
     const orderTotal = getOrderTotal(userCartItems.products)
 
-    res.json({product: userCartItems.products, orderTotal: orderTotal})
+    res.json({products: userCartItems.products, orderTotal: orderTotal})
   } catch (error) {
     next(error)
   }
 })
 
-//Update a user's order/cart to reflect a change in quantity OR that the item has been purchased
+//Update a user's cart to reflect a change in quantity
 router.put('/', async (req, res, next) => {
   try {
     await Product_order.update(
       {
-        quantity: req.body.quantity,
-        status: req.body.status
+        quantity: req.body.quantity
       },
       {
-        where: {orderId: req.body.orderId, productId: req.body.productId},
+        where: {
+          orderId: req.body.orderId,
+          productId: req.body.productId,
+          purchasedPrice: null
+        },
         returning: true,
         plain: true
       }
     )
-    const updatedCartItems = await Order.findByPk(req.params.orderId, {
-      include: Product
-    })
-    res.json(updatedCartItems)
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }
 })
 
 //Remove an item from a user's cart
-router.delete('/', async (req, res, next) => {
+router.delete('/:orderId/:productId', async (req, res, next) => {
   try {
     await Product_order.destroy({
-      where: {orderId: req.body.orderId, productId: req.body.productId}
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+        purchasedPrice: null
+      }
     })
     res.sendStatus(200)
   } catch (error) {
