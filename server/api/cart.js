@@ -1,46 +1,76 @@
 const router = require('express').Router()
-const {Cart, Inventory, User} = require('../db/models')
+const {Order, Product, Product_order} = require('../db/models')
 
-//Get a user's cart
-router.get('/:userId', async (req, res, next) => {
+//Helper functions
+
+const setCurrentPrice = products => {
+  products.forEach(async product => {
+    console.log('running set current price')
+    product.dataValues.product_order.dataValues.currentPrice = product.get(
+      'price'
+    )
+    await product.save()
+  })
+}
+
+const getOrderTotal = products => {
+  let orderTotal = products.reduce((accum, currVal) => {
+    return accum + currVal.get('product_order').get('productSubtotal')
+  }, 0)
+  return orderTotal
+}
+
+router.get('/', async (req, res, next) => {
   try {
-    const userCartItems = await User.findAll({
-      where: {id: req.params.userId},
-      include: Inventory
+    const userCartItems = await Order.findOne({
+      where: {userId: req.user.dataValues.id, status: 'cart'},
+      include: [
+        {
+          model: Product,
+          attributes: {exclude: ['stock']}
+        }
+      ]
     })
-    res.json(userCartItems)
+    setCurrentPrice(userCartItems.products)
+
+    const orderTotal = getOrderTotal(userCartItems.products)
+
+    res.json({product: userCartItems.products, orderTotal: orderTotal})
   } catch (error) {
     next(error)
   }
 })
 
-//Update a user's cart to reflect a change in quantity OR that the item has been purchased
-router.put('/:userId/:itemId', async (req, res, next) => {
+//Update a user's order/cart to reflect a change in quantity OR that the item has been purchased
+router.put('/', async (req, res, next) => {
   try {
-    const [numOfUpdatedItems, updatedItem] = await Cart.update(
+    await Product_order.update(
       {
         quantity: req.body.quantity,
         status: req.body.status
       },
       {
-        where: {userId: req.params.userId, inventoryId: req.params.itemId},
+        where: {orderId: req.body.orderId, productId: req.body.productId},
         returning: true,
         plain: true
       }
     )
-    res.json(updatedItem)
+    const updatedCartItems = await Order.findByPk(req.params.orderId, {
+      include: Product
+    })
+    res.json(updatedCartItems)
   } catch (error) {
     next(error)
   }
 })
 
 //Remove an item from a user's cart
-router.delete('/:userId/:itemId', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   try {
-    const removedItem = await Cart.destroy({
-      where: {userId: req.params.userId, inventoryId: req.params.itemId}
+    await Product_order.destroy({
+      where: {orderId: req.body.orderId, productId: req.body.productId}
     })
-    res.json(removedItem)
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }
@@ -49,11 +79,14 @@ router.delete('/:userId/:itemId', async (req, res, next) => {
 //Add an item to a user's cart
 
 //Will need to check that stock is not zero
-router.post('/:userId/:itemId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const newCartItem = await Cart.create({
-      userId: req.params.userId,
-      inventoryId: req.params.itemId,
+    const [order, wasCreated] = Order.findOrCreate({
+      where: {userId: req.body.userId}
+    })
+    const newCartItem = await Product_order.create({
+      orderId: order,
+      inventoryId: req.body.itemId,
       quantity: req.body.quantity
     })
     res.json(newCartItem)
