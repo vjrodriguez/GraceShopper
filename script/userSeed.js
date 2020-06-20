@@ -1,7 +1,7 @@
 const faker = require('faker')
 faker.seed(123)
-const userSeed = []
 
+const userSeed = []
 for (let i = 0; i < 100; i++) {
   userSeed.push({
     firstName: faker.name.firstName(),
