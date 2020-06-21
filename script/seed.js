@@ -1,6 +1,9 @@
 'use strict'
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Order} = require('../server/db/models')
+const userSeed = require('./userSeed')
+const productSeed = require('./productSeed')
+const orderSeed = require('./orderSeed')
 
 const dummyUsers = [
   {
@@ -78,6 +81,10 @@ const dummyProducts = [
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+  const fakerUsers = await User.bulkCreate(userSeed)
+  const fakerProducts = await Product.bulkCreate(productSeed)
+  const fakerOrders = await Order.bulkCreate(orderSeed)
+
   const users = await Promise.all(dummyUsers.map(user => User.create(user)))
 
   //const carts = await Promise.all(dummyCarts.map(cart => Cart.create(cart)))
@@ -127,6 +134,11 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
+  console.log(
+    `seeded ${fakerUsers.length} Faker users, ${
+      fakerProducts.length
+    } Faker products and ${fakerOrders.length} Faker orders!`
+  )
   console.log(`seeded successfully`)
 }
 
