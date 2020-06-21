@@ -8,8 +8,11 @@ export class Checkout extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
     super()
+    this.state = {}
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  componentDidMount() {}
+
+  // async handleSubmit() here
 
   render() {
     return (
