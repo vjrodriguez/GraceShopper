@@ -19,6 +19,6 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-//decrement Product route here?
+//decrement product route here?
 
 module.exports = router
