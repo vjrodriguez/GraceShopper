@@ -85,15 +85,18 @@ router.delete('/:orderId/:productId', async (req, res, next) => {
 //Will need to check that stock is not zero
 router.post('/', async (req, res, next) => {
   try {
-    const [order, wasCreated] = Order.findOrCreate({
-      where: {userId: req.body.userId}
+    const [order, created] = await Order.findOrCreate({
+      where: {
+        userId: req.user.dataValues.id,
+        status: 'cart'
+      }
     })
-    const newCartItem = await Product_order.create({
-      orderId: order,
-      inventoryId: req.body.itemId,
+    await Product_order.create({
+      orderId: order.id,
+      productId: req.body.productId,
       quantity: req.body.quantity
     })
-    res.json(newCartItem)
+    res.sendStatus(201)
   } catch (error) {
     next(error)
   }

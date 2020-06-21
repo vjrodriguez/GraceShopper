@@ -1,20 +1,32 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleProduct} from '../store/singleProduct'
+import {addToCart} from '../store/cart'
 
 export class SingleProduct extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      productId: this.props.match.params.id,
+      quantity: 1
+    }
+    this.handleSelect = this.handleSelect.bind(this)
+    this.handleAddToCart = this.handleAddToCart.bind(this)
+  }
+
   componentDidMount() {
-    this.props.getSingleProduct(this.props.match.params.id)
+    this.props.getSingleProduct(this.state.productId)
   }
 
-  handleSelect() {
-    //handleSelect needs to be filled out
-    console.log('YOU CHANGED YOUR SELECTION!')
+  async handleSelect(e) {
+    await this.setState({
+      quantity: e.target.value
+    })
   }
 
-  handleAddToCart() {
-    //handleAddToCart needs to be filled out
-    console.log('YOU TRIED TO ADD TO YOUR CART!')
+  async handleAddToCart() {
+    await this.props.addToCart('/api/cart', this.state)
+    //need to handle post add to cart behavior -- success message? new page?
   }
 
   render() {
@@ -69,7 +81,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getSingleProduct: id => dispatch(getSingleProduct(id))
+    getSingleProduct: id => dispatch(getSingleProduct(id)),
+    addToCart: (path, product) => dispatch(addToCart(path, product))
   }
 }
 
