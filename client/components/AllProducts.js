@@ -14,12 +14,12 @@ export class AllProducts extends React.Component {
         {this.props.products
           ? this.props.products.map(product => {
               return (
-                // <Link to={`/products/${product.id}`}>
-                <div className="product" key={product.id}>
-                  <h2>{product.name}</h2>
-                  <img src={product.imageUrl} />
-                </div>
-                // </Link>
+                <Link key={product.id} to={`/products/${product.id}`}>
+                  <div className="product">
+                    <h2>{product.name}</h2>
+                    <img src={product.imageUrl} />
+                  </div>
+                </Link>
               )
             })
           : ''}

@@ -14,6 +14,14 @@ const setCart = cart => ({
 })
 
 //THUNK CREATORS
+export const addToCart = (path, newProduct) => async dispatch => {
+  try {
+    await axios.post(path, newProduct)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const fetchCart = () => async dispatch => {
   try {
     const {data} = await axios.get(`/api/cart`)

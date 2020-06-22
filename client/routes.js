@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import AllProducts from './components/AllProducts'
 import {me} from './store'
+import SingleProduct from './components/single-product'
 import OrderConfirmation from './components/OrderConfirmation'
 import Checkout from './components/Checkout'
 import Cart from './components/cart'
@@ -28,7 +29,8 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/products" component={AllProducts} />
+        <Route exact path="/products" component={AllProducts} />
+        <Route exact path="/products/:id" component={SingleProduct} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/confirmation" component={OrderConfirmation} />
         {isLoggedIn && (
