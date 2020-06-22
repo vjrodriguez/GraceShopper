@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //also import the thunks needed from the store
 import {Header, Button, Segment} from 'semantic-ui-react'
-import {Elements} from '@stripe/react-stripe-js'
 
 export class Checkout extends Component {
   // eslint-disable-next-line no-useless-constructor
