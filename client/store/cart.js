@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import history from '../history'
 //ACTION TYPES
 const SET_CART = 'SET_CART'
 const UPDATE_CART = 'UPDATE_CART'
@@ -21,6 +21,14 @@ const updateCart = cart => ({
 })
 
 //THUNK CREATORS
+export const addToCart = (path, newProduct) => async dispatch => {
+  try {
+    await axios.post(path, newProduct)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const fetchCart = () => async dispatch => {
   try {
     const {data} = await axios.get(`/api/cart`)
@@ -43,6 +51,16 @@ export const removeProduct = productId => async dispatch => {
   try {
     const {data} = await axios.delete(`/api/cart/${productId}`)
     dispatch(updateCart(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const checkOut = () => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/cart/checkout')
+    dispatch(fetchCart(data))
+    history.push('/products') //what is this?????
   } catch (error) {
     console.error(error)
   }
