@@ -3,7 +3,7 @@ import {checkOut, fetchCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //also import the thunks needed from the store
-import {Header, Button, Segment, Form} from 'semantic-ui-react'
+import {Header, Button, Segment, Form, Icon} from 'semantic-ui-react'
 
 export class Checkout extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -20,7 +20,7 @@ export class Checkout extends Component {
   async handleSubmit() {
     event.preventDefault()
     await this.props.checkOut()
-    this.props.history.push('/products')
+    this.props.history.push('/confirmation/')
   }
 
   render() {
@@ -46,6 +46,12 @@ export class Checkout extends Component {
                 })}
               </h3>
               <h3>Order Total: ${currentTotal}</h3>
+              <Button as={Link} to="/cart" animated>
+                <Button.Content visible>Return to Cart</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="arrow left" />
+                </Button.Content>
+              </Button>
             </Segment>
           </div>
           <div>
@@ -87,14 +93,16 @@ export class Checkout extends Component {
                   <Form.Input fluid label="CVC" placeholder="CVC" />
                 </Form.Group>
                 <Form.Checkbox label="I agree to the Terms and Conditions" />
-                <Button type="submit">Confirm Order</Button>
+                <Button as={Link} to="/confirmation" type="submit">
+                  Confirm Order
+                </Button>
               </Form>
             </Segment>
           </div>
         </Segment>
       </div>
     ) : (
-      'Please start an order before checking out!'
+      'Please start an order before confirming order.'
     )
   }
 }
