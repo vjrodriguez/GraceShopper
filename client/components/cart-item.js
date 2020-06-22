@@ -18,7 +18,7 @@ export default class CartItem extends React.Component {
   async handleQtyIncrease(e) {
     await this.setState({quantity: this.state.quantity + 1})
     await this.props.updateQty(this.state)
-    this.props.fetchCart()
+    // this.props.fetchCart()
   }
 
   async handleQtyDecrease(e) {
@@ -26,14 +26,14 @@ export default class CartItem extends React.Component {
     if (this.state.quantity > 1) {
       await this.setState({quantity: this.state.quantity - 1})
       await this.props.updateQty(this.state)
-      this.props.fetchCart()
+      // this.props.fetchCart()
     } else {
       this.handleDelete()
     }
   }
 
   async handleDelete() {
-    await this.props.removeProduct(this.state.orderId, this.state.productId)
+    await this.props.removeProduct(this.state.productId)
     this.props.fetchCart()
   }
 
