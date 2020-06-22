@@ -1,5 +1,6 @@
 import React from 'react'
-import {Segment} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+import {Segment, Button} from 'semantic-ui-react'
 
 const OrderConfirmation = () => {
   return (
@@ -7,7 +8,9 @@ const OrderConfirmation = () => {
       <Segment inverted>
         <h2>Your order has been placed!</h2>
         <h3>Thanks for getting polish'd with us</h3>
-        <button type="submit">Start New Order</button>
+        <Button type="submit" as={Link} to="/products">
+          Start New Order
+        </Button>
       </Segment>
     </div>
   )

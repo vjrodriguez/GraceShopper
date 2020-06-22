@@ -5,7 +5,10 @@ const SET_CART = 'SET_CART'
 const UPDATE_CART = 'UPDATE_CART'
 
 //INITIAL STATE
-const emptyCart = {}
+const emptyCart = {
+  products: [],
+  orderTotal: 0
+}
 
 //ACTION CREATORS
 const setCart = cart => ({
