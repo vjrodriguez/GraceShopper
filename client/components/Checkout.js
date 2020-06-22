@@ -63,10 +63,10 @@ export class Checkout extends Component {
                 <Form.Group widths="equal">
                   <Form.Input
                     fluid
-                    label="First name"
+                    label="FIRST NAME"
                     placeholder="First name"
                   />
-                  <Form.Input fluid label="Last name" placeholder="Last name" />
+                  <Form.Input fluid label="LAST NAME" placeholder="Last name" />
                 </Form.Group>
                 <Form.Group widths="equal">
                   <Form.Input
@@ -81,8 +81,12 @@ export class Checkout extends Component {
                   />
                 </Form.Group>
                 <Form.Group widths="equal">
-                  <Form.Input fluid label="ZIP CODE" placeholder="Zip" />
-                  <Form.Input fluid label="PHONE" placeholder="phone" />
+                  <Form.Input fluid label="ZIP CODE" placeholder="Zipcode" />
+                  <Form.Input
+                    fluid
+                    label="PHONE"
+                    placeholder="phone (optional)"
+                  />
                 </Form.Group>
                 <Form.Group widths="equal">
                   <Form.Input
@@ -92,7 +96,6 @@ export class Checkout extends Component {
                   />
                   <Form.Input fluid label="CVC" placeholder="CVC" />
                 </Form.Group>
-                <Form.Checkbox label="I agree to the Terms and Conditions" />
                 <Button as={Link} to="/confirmation" type="submit">
                   Confirm Order
                 </Button>
