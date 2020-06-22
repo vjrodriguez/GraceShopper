@@ -44,13 +44,16 @@ router.get('/', async (req, res, next) => {
 //Update a user's cart to reflect a change in quantity
 router.put('/', async (req, res, next) => {
   try {
+    const userCart = await Order.findOne({
+      where: {userId: req.user.dataValues.id, status: 'cart'}
+    })
     await Product_order.update(
       {
         quantity: req.body.quantity
       },
       {
         where: {
-          orderId: req.body.orderId,
+          orderId: userCart.dataValues.id,
           productId: req.body.productId,
           purchasedPrice: null
         },
@@ -58,23 +61,55 @@ router.put('/', async (req, res, next) => {
         plain: true
       }
     )
-    res.sendStatus(200)
+    const userCartItems = await Order.findOne({
+      where: {userId: req.user.dataValues.id, status: 'cart'},
+      include: [
+        {
+          model: Product,
+          attributes: {exclude: ['stock']}
+        }
+      ]
+    })
+
+    setCurrentPrice(userCartItems.products)
+
+    const orderTotal = getOrderTotal(userCartItems.products)
+
+    res.json({products: userCartItems.products, orderTotal: orderTotal})
   } catch (error) {
     next(error)
   }
 })
 
 //Remove an item from a user's cart
-router.delete('/:orderId/:productId', async (req, res, next) => {
+router.delete('/:productId', async (req, res, next) => {
   try {
+    const userCart = await Order.findOne({
+      where: {userId: req.user.dataValues.id, status: 'cart'}
+    })
     await Product_order.destroy({
       where: {
-        orderId: req.params.orderId,
+        orderId: userCart.dataValues.id,
         productId: req.params.productId,
         purchasedPrice: null
       }
     })
-    res.sendStatus(200)
+
+    const userCartItems = await Order.findOne({
+      where: {userId: req.user.dataValues.id, status: 'cart'},
+      include: [
+        {
+          model: Product,
+          attributes: {exclude: ['stock']}
+        }
+      ]
+    })
+
+    setCurrentPrice(userCartItems.products)
+
+    const orderTotal = getOrderTotal(userCartItems.products)
+
+    res.json({products: userCartItems.products, orderTotal: orderTotal})
   } catch (error) {
     next(error)
   }

@@ -37,13 +37,13 @@ export class Cart extends React.Component {
         <Header textAlign="right">
           Total Price: ${this.props.orderTotal / 100}
         </Header>
-        <Button animated="vertical">
+        <Button as={Link} to="/products" animated="vertical">
           <Button.Content visible>Keep Shopping</Button.Content>
           <Button.Content hidden>
             <Icon name="shopping bag" />
           </Button.Content>
         </Button>
-        <Button animated>
+        <Button as={Link} to="/checkout" animated>
           <Button.Content visible>Go to Checkout</Button.Content>
           <Button.Content hidden>
             <Icon name="arrow right" />
@@ -65,8 +65,7 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCart()),
     updateQty: newQty => dispatch(updateQty(newQty)),
-    removeProduct: (orderId, productId) =>
-      dispatch(removeProduct(orderId, productId))
+    removeProduct: productId => dispatch(removeProduct(productId))
   }
 }
 
