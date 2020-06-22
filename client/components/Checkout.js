@@ -1,19 +1,34 @@
 import React, {Component} from 'react'
+import {checkOut, fetchCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //also import the thunks needed from the store
-import {Header, Button, Form, Segment} from 'semantic-ui-react'
+import {Header, Button, Segment} from 'semantic-ui-react'
+import {Elements} from '@stripe/react-stripe-js'
 
 export class Checkout extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
     super()
+    this.state = {}
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  // async handleSubmit() here
+  componentDidMount() {
+    this.props.fetchCart()
+  }
+
+  async handleSubmit() {
+    event.preventDefault()
+    await this.props.checkOut()
+    this.props.history.push('/products')
+  }
 
   render() {
-    return (
+    console.log('PROPS!!!', this.props)
+    const currentOrder = this.props.order
+    const currentTotal = this.props.total
+    return currentOrder ? (
       <div>
         <Segment inverted>
           <Header as="h1" inverted clor="grey">
@@ -21,17 +36,45 @@ export class Checkout extends Component {
           </Header>
           <div>
             <Segment inverted>
-              <h3>order quantity: </h3>
-              <h3>order total: </h3>
+              <h3>
+                order quantity:{' '}
+                {currentOrder.map(product => {
+                  return (
+                    <h3 key={product.id}>{product.product_order.quantity}</h3>
+                  )
+                })}
+              </h3>
+              <h3>order total: ${currentTotal}</h3>
             </Segment>
           </div>
           <Segment inverted>
+            <Button type="submit">
+              Back to Cart<Link to="/cart" />
+            </Button>
             <Button type="submit">Buy Now</Button>
           </Segment>
         </Segment>
       </div>
+    ) : (
+      ''
     )
   }
 }
 
-export default Checkout
+const mapStateToProps = state => ({
+  order: state.cart.products,
+  total: state.cart.orderTotal
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCart: () => {
+      dispatch(fetchCart())
+    },
+    checkOut: () => {
+      dispatch(checkOut())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
