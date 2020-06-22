@@ -132,10 +132,10 @@ const AuthForm = props => {
             </select>
           </div>
           <div>
-            <label htmlFor="zipcode">
+            <label htmlFor="zipCode">
               <small>Zip Code</small>
             </label>
-            <input name="zipcode" type="text" />
+            <input name="zipCode" type="text" />
           </div>
           <div>
             <label htmlFor="country">
@@ -178,38 +178,41 @@ const mapSignup = state => {
 }
 
 const mapDispatch = dispatch => {
+  let dispatchLogin = evt => {
+    evt.preventDefault()
+    let userInfo = {
+      email: evt.target.email.value,
+      password: evt.target.password.value
+    }
+    const formName = evt.target.name
+    dispatch(auth(formName, userInfo))
+  }
+  let dispatchSignup = evt => {
+    evt.preventDefault()
+    let userInfo = {
+      email: evt.target.email.value,
+      password: evt.target.password.value,
+      firstName: evt.target.firstName.value,
+      lastName: evt.target.lastName.value,
+      birthday: Date.parse(`${evt.target.birthday.value} 00:00:00 GMT`),
+      address: evt.target.address.value,
+      country: evt.target.country.value,
+      state: evt.target.state.value,
+      zipCode: evt.target.zipCode.value
+    }
+    const formName = evt.target.name
+    dispatch(auth(formName, userInfo))
+  }
+
   return {
     handleSubmit(evt) {
       if (evt.target.name === 'login') {
-        this.dispatchLogin(evt)
+        console.log('logging in')
+        dispatchLogin(evt)
       } else if (evt.target.name === 'signup') {
-        this.dispatchSignup(evt)
+        console.log('signing up')
+        dispatchSignup(evt)
       }
-    },
-    dispatchLogin(evt) {
-      evt.preventDefault()
-      let userInfo = {
-        email: evt.target.email.value,
-        password: evt.target.password.value
-      }
-      const formName = evt.target.name
-      dispatch(auth(formName, userInfo))
-    },
-    dispatchSignup(evt) {
-      evt.preventDefault()
-      let userInfo = {
-        email: evt.target.email.value,
-        password: evt.target.password.value,
-        firstName: evt.target.firstName.value,
-        lastName: evt.target.lastName.value,
-        birthday: Date.parse(`${evt.target.birthday.value} 00:00:00 GMT`),
-        address: evt.target.address.value,
-        country: evt.target.country.value,
-        state: evt.target.state.value,
-        zipcode: evt.target.zipcode.value
-      }
-      const formName = evt.target.name
-      dispatch(auth(formName, userInfo))
     }
   }
 }
