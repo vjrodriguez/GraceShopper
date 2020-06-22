@@ -188,23 +188,28 @@ const mapDispatch = dispatch => {
     },
     dispatchLogin(evt) {
       evt.preventDefault()
+      let userInfo = {
+        email: evt.target.email.value,
+        password: evt.target.password.value
+      }
       const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      dispatch(auth(formName, userInfo))
     },
     dispatchSignup(evt) {
       evt.preventDefault()
+      let userInfo = {
+        email: evt.target.email.value,
+        password: evt.target.password.value,
+        firstName: evt.target.firstName.value,
+        lastName: evt.target.lastName.value,
+        birthday: Date.parse(`${evt.target.birthday.value} 00:00:00 GMT`),
+        address: evt.target.address.value,
+        country: evt.target.country.value,
+        state: evt.target.state.value,
+        zipcode: evt.target.zipcode.value
+      }
       const formName = evt.target.name
-      const firstName = evt.target.firstName
-      const lastName = evt.target.lastName
-      const birthday = evt.target.birthday
-      const address = evt.target.address
-      const country = evt.target.country
-      const state = evt.target.state
-      const zipcode = evt.target.zipcode
-      const email = evt.target.email.value
-      const password = evt.target.password.value
+      dispatch(auth(formName, userInfo))
     }
   }
 }
