@@ -102,14 +102,14 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//1. This route will get the quantity of product_order and the total purchased price
+//1. The checkout route will get the quantity of product_order and the total purchased price
 //2. Decrease the inventory quantity based on product_order quantity
 //3. Set the price in product_order to the products current price
 //4. cahnge the order's status from cart to completed
 //5. create a new order (empty cart)
 //6. set the new order userId to the user on the session //???
 //Questions: unsure about the userid in the url, but how else can we identify which order belongs to which user? Maybe from the order table?
-//take out userId in uri for security
+//take out userId in url for security
 //additional avlidation to see users are paying the right amount??
 //Stripe might be easier to validate user input!!!!!
 //url will change to dataValues after fronted is ready

@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import history from '../history'
 //ACTION TYPES
 const SET_CART = 'SET_CART'
 
@@ -42,6 +42,16 @@ export const updateQty = newQty => async dispatch => {
 export const removeProduct = (orderId, productId) => async dispatch => {
   try {
     await axios.delete(`/api/cart/${orderId}/${productId}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const checkOut = () => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/cart/checkout')
+    dispatch(fetchCart(data))
+    history.push('/products') //what is this?????
   } catch (error) {
     console.error(error)
   }
