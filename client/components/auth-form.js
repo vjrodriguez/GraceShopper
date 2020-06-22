@@ -8,30 +8,150 @@ import {auth} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
-  )
+  if (name === 'login') {
+    return (
+      <div>
+        <form onSubmit={handleSubmit} name={name}>
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
+    )
+  } else if (name === 'signup') {
+    return (
+      <div>
+        <form onSubmit={handleSubmit} name={name}>
+          <div>
+            <label htmlFor="firstName">
+              <small>First Name</small>
+            </label>
+            <input name="firstName" type="text" />
+          </div>
+          <div>
+            <label htmlFor="lastName">
+              <small>Last Name</small>
+            </label>
+            <input name="lastName" type="text" />
+          </div>
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <label htmlFor="birthday">
+              <small>Birthday</small> <br />
+              <small>month/day/year</small>
+            </label>
+            <input name="birthday" type="text" defaultValue="1/1/1970" />
+          </div>
+          <div>
+            <label htmlFor="address">
+              <small>Address</small>
+            </label>
+            <input name="address" type="text" />
+          </div>
+          <div>
+            <label htmlFor="state">
+              <small>State</small>
+            </label>
+            <select name="state" type="text">
+              <option>AL</option>
+              <option>AK</option>
+              <option>AZ</option>
+              <option>AR</option>
+              <option>CO</option>
+              <option>CA</option>
+              <option>CT</option>
+              <option>DE</option>
+              <option>FL</option>
+              <option>GA</option>
+              <option>HI</option>
+              <option>ID</option>
+              <option>IL</option>
+              <option>IN</option>
+              <option>IA</option>
+              <option>KS</option>
+              <option>KY</option>
+              <option>LA</option>
+              <option>ME</option>
+              <option>MD</option>
+              <option>MA</option>
+              <option>MI</option>
+              <option>MN</option>
+              <option>MS</option>
+              <option>MO</option>
+              <option>MD</option>
+              <option>NE</option>
+              <option>NV</option>
+              <option>NH</option>
+              <option>NJ</option>
+              <option>NM</option>
+              <option>NY</option>
+              <option>NC</option>
+              <option>ND</option>
+              <option>OH</option>
+              <option>OK</option>
+              <option>OR</option>
+              <option>PA</option>
+              <option>RI</option>
+              <option>SC</option>
+              <option>SD</option>
+              <option>TN</option>
+              <option>TX</option>
+              <option>UT</option>
+              <option>VT</option>
+              <option>VA</option>
+              <option>WA</option>
+              <option>WI</option>
+              <option>WV</option>
+              <option>WY</option>
+              <option>DC</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="zipcode">
+              <small>Zip Code</small>
+            </label>
+            <input name="zipcode" type="text" />
+          </div>
+          <div>
+            <label htmlFor="country">
+              <small>Country</small>
+            </label>
+            <input name="country" type="text" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
+    )
+  }
 }
 
 /**
@@ -60,11 +180,31 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
+      if (evt.target.name === 'login') {
+        this.dispatchLogin(evt)
+      } else if (evt.target.name === 'signup') {
+        this.dispatchSignup(evt)
+      }
+    },
+    dispatchLogin(evt) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
+    },
+    dispatchSignup(evt) {
+      evt.preventDefault()
+      const formName = evt.target.name
+      const firstName = evt.target.firstName
+      const lastName = evt.target.lastName
+      const birthday = evt.target.birthday
+      const address = evt.target.address
+      const country = evt.target.country
+      const state = evt.target.state
+      const zipcode = evt.target.zipcode
+      const email = evt.target.email.value
+      const password = evt.target.password.value
     }
   }
 }
