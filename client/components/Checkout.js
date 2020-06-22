@@ -58,7 +58,7 @@ export class Checkout extends Component {
         </Segment>
       </div>
     ) : (
-      ''
+      'Please start an order before checking out!'
     )
   }
 }
