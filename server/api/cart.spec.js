@@ -18,7 +18,7 @@ describe('Cart routes', () => {
     const lastName = 'Dog'
 
     const codysCredentials = {
-      email: codysEmail,
+      userInfo: {email: codysEmail},
       password: codysPassword
     }
 
