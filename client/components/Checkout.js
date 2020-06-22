@@ -27,7 +27,7 @@ export class Checkout extends Component {
   render() {
     console.log('PROPS!!!', this.props)
     const currentOrder = this.props.order
-    const currentTotal = this.props.total
+    const currentTotal = this.props.total / 100
     return currentOrder ? (
       <div>
         <Segment inverted>
@@ -37,14 +37,16 @@ export class Checkout extends Component {
           <div>
             <Segment inverted>
               <h3>
-                order quantity:{' '}
+                Order Items:
                 {currentOrder.map(product => {
                   return (
-                    <h3 key={product.id}>{product.product_order.quantity}</h3>
+                    <div key={product.id}>
+                      {product.name}: {product.product_order.quantity}
+                    </div>
                   )
                 })}
               </h3>
-              <h3>order total: ${currentTotal}</h3>
+              <h3>Order Total: ${currentTotal}</h3>
             </Segment>
           </div>
           <Segment inverted>
