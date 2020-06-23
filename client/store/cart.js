@@ -63,7 +63,7 @@ export const checkOut = () => async dispatch => {
   try {
     const {data} = await axios.put('/api/cart/checkout')
     dispatch(fetchCart(data))
-    history.push('/products') //what is this?????
+    history.push('/confirmation')
   } catch (error) {
     console.error(error)
   }
