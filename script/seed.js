@@ -50,7 +50,8 @@ const dummyProducts = [
       'etiquette, posture, protocol. did we miss anything? oh, yes, this elegant soft mauve nail lacquer. this dainty darling is just the thing for a proper manicure.',
     price: 900,
     colorFamily: 'reds',
-    stock: 20
+    stock: 20,
+    imageUrl: '/9.JPEG'
   },
   {
     name: 'living legend',
@@ -58,15 +59,17 @@ const dummyProducts = [
       'recognized is your middle name in this longwear, rich risk-taking crimson – everyone will be vying for your cover photo. step 1: apply two coats of gel couture color.  step 2: apply gel couture top coat.',
     price: 1150,
     colorFamily: 'red',
-    stock: 75
+    stock: 75,
+    imageUrl: '/4.JPEG'
   },
   {
-    name: 'wild card',
+    name: 'the truth goddess',
     description:
       'you’re pretty tricky in a vibrant sapphire blue nail polish with a velvet matte finish. (matte)',
     price: 900,
     colorFamily: 'bluess',
-    stock: 99
+    stock: 99,
+    imageUrl: '/14.JPEG'
   },
   {
     name: 'dye-mentions',
@@ -74,7 +77,8 @@ const dummyProducts = [
       'all the angles. all the answers. there’s just no stopping this multifaceted, genius powder blue nail polish. step 1: apply two coats of gel couture color.  step 2: apply gel couture top coat.',
     price: 1150,
     colorFamily: 'greens',
-    stock: 80
+    stock: 80,
+    imageUrl: '/18.JPEG'
   }
 ]
 
