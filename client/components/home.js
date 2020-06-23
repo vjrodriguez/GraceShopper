@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {
   CarouselProvider,
   Image,
@@ -12,6 +13,10 @@ import {
 import {Divider, Container, Button, Icon, Header} from 'semantic-ui-react'
 import 'pure-react-carousel/dist/react-carousel.es.css'
 
+const randomNumber = (min, max) => {
+  return Math.random() * (max - min) + min
+}
+
 export const Homepage = () => {
   return (
     <div>
@@ -19,7 +24,7 @@ export const Homepage = () => {
         <Header as="h1" id="page-title-home">
           Polish'd
         </Header>
-        <Button primary size="huge">
+        <Button inverted as={Link} to="/products" primary size="huge">
           View Our Collection
           <Icon name="right arrow" />
         </Button>
@@ -31,13 +36,13 @@ export const Homepage = () => {
       >
         <Slider>
           <Slide index={0}>
-            <Image src="http://placekitten.com/600/200" />
+            <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} />
           </Slide>
           <Slide index={1}>
-            <Image src="http://placekitten.com/600/200" />
+            <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} />
           </Slide>
           <Slide index={2}>
-            <Image src="http://placekitten.com/600/200" />
+            <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} />
           </Slide>
         </Slider>
         <Divider />
