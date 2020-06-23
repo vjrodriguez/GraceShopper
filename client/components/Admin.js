@@ -20,7 +20,8 @@ import {
   submitUpdate,
   removeProduct,
   getUsers,
-  toggleAdmin
+  toggleAdmin,
+  fetchStats
 } from '../store/admin'
 
 export class Admin extends React.Component {
@@ -42,29 +43,37 @@ export class Admin extends React.Component {
   componentDidMount() {
     this.props.getProducts()
     this.props.getUsers()
+    this.props.fetchStats()
   }
 
   render() {
     const {activeIndex} = this.state
-    console.log('PROPS', this.props.products)
+    console.log('PROPS', this.props)
     return (
       <Grid divided="vertically">
         <Grid.Row columns={3}>
           <Grid.Column textAlign="center">
             <Statistic>
-              <Statistic.Value>50</Statistic.Value>
+              <Statistic.Value>
+                {this.props.users ? this.props.users.length : 0}
+              </Statistic.Value>
               <Statistic.Label>User Accounts</Statistic.Label>
             </Statistic>
           </Grid.Column>
           <Grid.Column textAlign="center">
             <Statistic>
-              <Statistic.Value>257</Statistic.Value>
+              <Statistic.Value>
+                {this.props.totalQty ? this.props.totalQty : 0}
+              </Statistic.Value>
               <Statistic.Label>Products Sold</Statistic.Label>
             </Statistic>
           </Grid.Column>
           <Grid.Column textAlign="center">
             <Statistic>
-              <Statistic.Value>$2,400</Statistic.Value>
+              <Statistic.Value>
+                {' '}
+                {this.props.totalRev ? `$${this.props.totalRev / 100}` : '$0'}
+              </Statistic.Value>
               <Statistic.Label>Total Revenue</Statistic.Label>
             </Statistic>
           </Grid.Column>
@@ -132,7 +141,7 @@ export class Admin extends React.Component {
             </Accordion.Title>
             <Accordion.Content active={activeIndex === 1}>
               <Grid>
-                <Grid.Row columns={6}>
+                {/* <Grid.Row columns={6}>
                   <Grid.Column>
                     <Dropdown
                       placeholder="Last Name"
@@ -143,13 +152,13 @@ export class Admin extends React.Component {
                         {
                           key: 'LastName1',
                           text: 'LastName1',
-                          value: 'LastName1'
+                          value: 'LastName1',
                         },
                         {
                           key: 'LastName2',
                           text: 'LastName2',
-                          value: 'LastName2'
-                        }
+                          value: 'LastName2',
+                        },
                       ]}
                     />
                   </Grid.Column>
@@ -163,13 +172,13 @@ export class Admin extends React.Component {
                         {
                           key: 'Email1',
                           text: 'Email1',
-                          value: 'Email1'
+                          value: 'Email1',
                         },
                         {
                           key: 'Email2',
                           text: 'Email2',
-                          value: 'Email2'
-                        }
+                          value: 'Email2',
+                        },
                       ]}
                     />
                   </Grid.Column>
@@ -183,17 +192,17 @@ export class Admin extends React.Component {
                         {
                           key: 'Admin',
                           text: 'Admin',
-                          value: 'Admin'
+                          value: 'Admin',
                         },
                         {
                           key: 'Not Admin',
                           text: 'Not Admin',
-                          value: 'Not Admin'
-                        }
+                          value: 'Not Admin',
+                        },
                       ]}
                     />
                   </Grid.Column>
-                </Grid.Row>
+                </Grid.Row> */}
                 <Grid.Row columns={5}>
                   <GridColumn>
                     <Header as="h4">First Name:</Header>
@@ -228,7 +237,9 @@ export class Admin extends React.Component {
 const mapState = state => {
   return {
     products: state.admin.products,
-    users: state.admin.users
+    users: state.admin.users,
+    totalRev: state.admin.totalRev,
+    totalQty: state.admin.totalQty
   }
 }
 
@@ -239,7 +250,8 @@ const mapDispatch = dispatch => {
     submitUpdate: updatedProduct => dispatch(submitUpdate(updatedProduct)),
     removeProduct: productId => dispatch(removeProduct(productId)),
     getUsers: () => dispatch(getUsers()),
-    toggleAdmin: userId => dispatch(toggleAdmin(userId))
+    toggleAdmin: userId => dispatch(toggleAdmin(userId)),
+    fetchStats: () => dispatch(fetchStats())
   }
 }
 

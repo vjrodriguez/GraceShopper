@@ -9,9 +9,6 @@ export default function AdminUserView(props) {
       <Grid.Column>{user.lastName}</Grid.Column>
       <Grid.Column>{user.email}</Grid.Column>
       <Grid.Column>
-        <Button>Orders</Button>
-      </Grid.Column>
-      <Grid.Column>
         {user.isAdmin ? (
           <Button basic color="red" onClick={() => toggleAdmin(user.id)}>
             Revoke Admin

@@ -1,5 +1,21 @@
 const router = require('express').Router()
-const {Product, User} = require('../db/models')
+const {Product, User, Product_order} = require('../db/models')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+
+const getTotalRev = orders => {
+  let totalRev = orders.reduce((accum, currVal) => {
+    return accum + currVal.get('productSubtotal')
+  }, 0)
+  return totalRev
+}
+
+const getTotalQty = orders => {
+  let totalQty = orders.reduce((accum, currVal) => {
+    return accum + currVal.get('quantity')
+  }, 0)
+  return totalQty
+}
 
 const checkIfAdmin = (req, res, next) => {
   if (req.user === undefined || !req.user.isAdmin) {
@@ -76,6 +92,24 @@ router.put('/users/:id', checkIfAdmin, async (req, res, next) => {
       : (updatedUser.isAdmin = true)
     await updatedUser.save()
     res.json(updatedUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/stats', checkIfAdmin, async (req, res, next) => {
+  try {
+    const productOrders = await Product_order.findAll({
+      where: {
+        purchasedPrice: {[Op.ne]: null}
+      }
+    })
+
+    const totalRev = getTotalRev(productOrders)
+
+    const totalQty = getTotalQty(productOrders)
+
+    res.send({totalRev, totalQty})
   } catch (error) {
     next(error)
   }

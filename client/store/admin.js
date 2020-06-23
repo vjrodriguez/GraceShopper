@@ -6,6 +6,7 @@ const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const SET_USERS = 'SET_USERS'
 const UPDATE_USER = 'UPDATE_USER'
+const SET_STATS = 'SET_STATS'
 
 export const setProducts = products => ({
   type: SET_PRODUCTS,
@@ -35,6 +36,11 @@ export const setUsers = users => ({
 export const updateUser = user => ({
   type: UPDATE_USER,
   user
+})
+
+export const setStats = stats => ({
+  type: SET_STATS,
+  stats
 })
 
 export const getProducts = () => async dispatch => {
@@ -68,6 +74,13 @@ export const getUsers = () => async dispatch => {
 export const toggleAdmin = userId => async dispatch => {
   const {data} = await axios.put(`/api/admin/users/${userId}`)
   dispatch(updateUser(data))
+}
+
+export const fetchStats = () => async dispatch => {
+  console.log('fetching stats')
+  const {data} = await axios.get('/api/admin/stats')
+  console.log(data)
+  dispatch(setStats(data))
 }
 
 export default function(state = {}, action) {
@@ -104,6 +117,12 @@ export default function(state = {}, action) {
       })
       return {...state, users: updatedUsersList}
     }
+    case SET_STATS:
+      return {
+        ...state,
+        totalRev: action.stats.totalRev,
+        totalQty: action.stats.totalQty
+      }
     default:
       return state
   }
