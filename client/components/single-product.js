@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleProduct} from '../store/singleProduct'
 import {addToCart} from '../store/cart'
+import {Card, Icon, Image} from 'semantic-ui-react'
 
 export class SingleProduct extends React.Component {
   constructor(props) {
@@ -34,14 +35,16 @@ export class SingleProduct extends React.Component {
     return (
       <div>
         {product ? (
-          <div>
-            <div className="image-col">
-              <img src={product.imageUrl} />
-            </div>
-            <div className="detail-col">
-              <h2>{product.name}</h2>
-              <p>{product.description}</p>
-              <div>{product.price}</div>
+          <Card centered>
+            <Image src={product.imageUrl} wrapped ui={false} />
+            <Card.Content>
+              <Card.Header>{product.name}</Card.Header>
+              <Card.Description>{product.description}</Card.Description>
+              <Card.Meta>
+                <span className="date">{product.price / 100}</span>
+              </Card.Meta>
+            </Card.Content>
+            <Card.Content extra>
               <label htmlFor="qty-select">Quantity: </label>
               <select
                 onChange={this.handleSelect}
@@ -62,8 +65,8 @@ export class SingleProduct extends React.Component {
               <button onClick={this.handleAddToCart} type="button">
                 Add To Cart
               </button>
-            </div>
-          </div>
+            </Card.Content>
+          </Card>
         ) : (
           ''
         )}
