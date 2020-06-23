@@ -207,10 +207,10 @@ const mapDispatch = dispatch => {
   return {
     async handleSubmit(evt) {
       if (evt.target.name === 'login') {
-        console.log('logging in')
+        console.log('handleSubmit with login name called in auth-form.js')
         await dispatchLogin(evt)
       } else if (evt.target.name === 'signup') {
-        console.log('signing up')
+        console.log('handleSubmit with signup name called in auth-form.js')
         await dispatchSignup(evt)
       }
     }
