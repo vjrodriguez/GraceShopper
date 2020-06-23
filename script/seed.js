@@ -11,7 +11,7 @@ const dummyUsers = [
     lastName: 'Ochoa',
     email: 'naomi@polishd.com',
     isAdmin: false,
-    password: 'Naomi123'
+    password: 'Naomi123!'
   },
   {
     firstName: 'Vicky',
