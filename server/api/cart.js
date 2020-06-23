@@ -164,19 +164,16 @@ router.put('/checkout', async (req, res, next) => {
       await inventoryProduct.update({
         stock: inventoryProduct.stock - quantityInOrder
       })
-      console.log('CURRENT ORDER: ', currentOrder)
-      console.log('PRODUCTS: ', products)
-      console.log('Quantity in Order: ', quantityInOrder)
-      console.log('Inventory product: ', inventoryProduct)
       await product.product_order.update({
         purchasedPrice: inventoryProduct.price
       })
     })
     //check totalOderPrice is the right amount(the one they saw in cart before check out)
-    const totalOrderPrice =
-      products.reduce((accu, product) => {
-        return accu + product.product_order.quantity * product.purchasedPrice
-      }, 0) / 100 //can divide 100 on the frontend instead
+    //Write this as a test to cehck instead of checking on the backend
+    // const totalOrderPrice =
+    //   products.reduce((accu, product) => {
+    //     return accu + product.product_order.quantity * product.purchasedPrice
+    //   }, 0) / 100 //can divide 100 on the frontend instead
     await currentOrder.update({
       status: 'completed'
     })

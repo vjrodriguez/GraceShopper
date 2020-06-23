@@ -20,7 +20,7 @@ export class Checkout extends Component {
   async handleSubmit() {
     event.preventDefault()
     await this.props.checkOut()
-    this.props.history.push('/confirmation/')
+    this.props.history.push('/confirmation')
   }
 
   render() {
@@ -59,7 +59,7 @@ export class Checkout extends Component {
               <Header as="h1" inverted clor="grey">
                 Payment and Shipping Info
               </Header>
-              <Form inverted>
+              <Form inverted onSubmit={this.handleSubmit}>
                 <Form.Group widths="equal">
                   <Form.Input
                     fluid
@@ -96,9 +96,7 @@ export class Checkout extends Component {
                   />
                   <Form.Input fluid label="CVC" placeholder="CVC" />
                 </Form.Group>
-                <Button as={Link} to="/confirmation" type="submit">
-                  Confirm Order
-                </Button>
+                <Button type="submit">Confirm Order</Button>
               </Form>
             </Segment>
           </div>
