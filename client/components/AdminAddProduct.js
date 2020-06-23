@@ -10,24 +10,41 @@ export default class AdminAddProduct extends React.Component {
       colorFamily: '',
       price: '',
       stock: '',
-      imageUrl: '',
+      imageUrl:
+        'https://www.lacquester.com/wp-content/uploads/2017/03/EmptyBottleNew.png',
       open: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.close = this.close.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.open = this.open.bind(this)
+    this.close = this.close.bind(this)
   }
 
   handleChange(e) {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  close() {
-    this.setState({open: false})
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.createProduct(this.state)
+    this.setState({
+      name: '',
+      description: '',
+      colorFamily: '',
+      price: '',
+      stock: '',
+      imageUrl:
+        'https://www.lacquester.com/wp-content/uploads/2017/03/EmptyBottleNew.png',
+      open: false
+    })
   }
 
   open() {
     this.setState({open: true})
+  }
+
+  close() {
+    this.setState({open: false})
   }
 
   render() {
@@ -95,8 +112,11 @@ export default class AdminAddProduct extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button type="submit" onClick={this.close}>
+            <Button type="submit" onClick={this.handleSubmit}>
               Submit
+            </Button>
+            <Button type="button" onClick={this.close}>
+              Cancel
             </Button>
           </Form>
         </Modal.Content>

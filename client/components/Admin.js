@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {
   Grid,
   Statistic,
@@ -13,8 +14,9 @@ import {
 import AdminUpdateProduct from './AdminUpdateProduct'
 import AdminAddProduct from './AdminAddProduct'
 import AdminUserView from './AdminUserView'
+import {createProduct, getProducts} from '../store/admin'
 
-export default class Admin extends React.Component {
+export class Admin extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -30,9 +32,13 @@ export default class Admin extends React.Component {
     this.setState({activeIndex: newIndex})
   }
 
+  componentDidMount() {
+    this.props.getProducts()
+  }
+
   render() {
     const {activeIndex} = this.state
-
+    console.log('PROPS', this.props.products)
     return (
       <Grid divided="vertically">
         <Grid.Row columns={3}>
@@ -87,9 +93,18 @@ export default class Admin extends React.Component {
                     <Header as="h4">Image:</Header>
                   </GridColumn>
                 </Grid.Row>
-                <AdminUpdateProduct />
+                {this.props.products
+                  ? this.props.products.map(product => {
+                      return (
+                        <AdminUpdateProduct
+                          product={product}
+                          key={product.id}
+                        />
+                      )
+                    })
+                  : ''}
                 <Grid.Row columns={1}>
-                  <AdminAddProduct />
+                  <AdminAddProduct createProduct={this.props.createProduct} />
                 </Grid.Row>
               </Grid>
             </Accordion.Content>
@@ -189,3 +204,18 @@ export default class Admin extends React.Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    products: state.admin.products
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getProducts: () => dispatch(getProducts()),
+    createProduct: newProduct => dispatch(createProduct(newProduct))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Admin)
