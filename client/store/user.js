@@ -31,17 +31,16 @@ export const me = () => async dispatch => {
 }
 
 export const auth = (method, userInfo) => async dispatch => {
-  let res
+  console.log('AUTH IS CALLED AUTH IS CALLED')
   try {
-    res = await axios.post(`/auth/${method}`, {userInfo})
+    const {data} = await axios.post(`/auth/${method}`, userInfo)
+    dispatch(getUser(data))
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
-
+  console.log('second try')
   try {
-    dispatch(getUser(userInfo))
-    history.push('/home')
-    console.log(history)
+    history.push('')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
@@ -62,8 +61,9 @@ export const logout = () => async dispatch => {
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
-    case GET_USER:
+    case GET_USER: {
       return action.user
+    }
     case REMOVE_USER:
       return defaultUser
     default:
