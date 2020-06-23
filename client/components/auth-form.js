@@ -205,13 +205,13 @@ const mapDispatch = dispatch => {
   }
 
   return {
-    handleSubmit(evt) {
+    async handleSubmit(evt) {
       if (evt.target.name === 'login') {
         console.log('logging in')
-        dispatchLogin(evt)
+        await dispatchLogin(evt)
       } else if (evt.target.name === 'signup') {
         console.log('signing up')
-        dispatchSignup(evt)
+        await dispatchSignup(evt)
       }
     }
   }
