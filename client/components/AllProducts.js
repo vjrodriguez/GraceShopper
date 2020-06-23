@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchProducts} from '../store/products'
+import {Card, Icon, Button, Image, CardContent} from 'semantic-ui-react'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -10,20 +11,22 @@ export class AllProducts extends React.Component {
 
   render() {
     return (
-      <div>
+      <Card.Group itemsPerRow={3}>
         {this.props.products
           ? this.props.products.map(product => {
               return (
-                <Link key={product.id} to={`/products/${product.id}`}>
-                  <div className="product">
-                    <h2>{product.name}</h2>
-                    <img src={product.imageUrl} />
-                  </div>
-                </Link>
+                <Card raised key={product.id}>
+                  <Image src={product.imageUrl} wrapped ui={false} />
+                  <CardContent centered="true" className="product">
+                    <Card.Header as={Link} to={`/products/${product.id}`}>
+                      {product.name}
+                    </Card.Header>
+                  </CardContent>
+                </Card>
               )
             })
           : ''}
-      </div>
+      </Card.Group>
     )
   }
 }
