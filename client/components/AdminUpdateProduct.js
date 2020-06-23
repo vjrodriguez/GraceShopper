@@ -2,24 +2,16 @@ import React from 'react'
 import {Grid, Input, Form, Button, Modal, Icon, Header} from 'semantic-ui-react'
 
 export default class AdminUpdateProduct extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      name: 'productname',
-      colorFamily: 'blue',
-      description: 'a description',
-      price: '900',
-      stock: '80',
-      imageUrl: 'a URL',
+      name: this.props.product.name,
+      colorFamily: this.props.product.colorFamily,
+      description: this.props.product.description,
+      price: this.props.product.price,
+      stock: this.props.product.stock,
+      imageUrl: this.props.product.imageUrl,
       open: false
-
-      // name: this.props.name,
-      // colorFamily: this.props.colorFamily,
-      // description: this.props.description,
-      // price: this.props.price,
-      // stock: this.props.stock,
-      // imageUrl: this.props.imageUrl,
-      // open: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.close = this.close.bind(this)
