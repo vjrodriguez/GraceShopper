@@ -30,7 +30,7 @@ for (let i = 0; i < 50; i++) {
   productSeed.push({
     name: faker.random.word() + ' ' + faker.commerce.color(),
     description:
-      'a brief description of this product that represents the polishd brand',
+      'Bring a little extra shine to your fingertips in a variety of colors with the effortless style of this "Polish\'d" nail polish.',
     price: faker.random.number({
       min: 900,
       max: 1600
