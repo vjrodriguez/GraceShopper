@@ -14,7 +14,14 @@ import {
 import AdminUpdateProduct from './AdminUpdateProduct'
 import AdminAddProduct from './AdminAddProduct'
 import AdminUserView from './AdminUserView'
-import {createProduct, getProducts} from '../store/admin'
+import {
+  createProduct,
+  getProducts,
+  submitUpdate,
+  removeProduct,
+  getUsers,
+  toggleAdmin
+} from '../store/admin'
 
 export class Admin extends React.Component {
   constructor() {
@@ -34,6 +41,7 @@ export class Admin extends React.Component {
 
   componentDidMount() {
     this.props.getProducts()
+    this.props.getUsers()
   }
 
   render() {
@@ -98,7 +106,9 @@ export class Admin extends React.Component {
                       return (
                         <AdminUpdateProduct
                           product={product}
+                          submitUpdate={this.props.submitUpdate}
                           key={product.id}
+                          removeProduct={this.props.removeProduct}
                         />
                       )
                     })
@@ -195,7 +205,17 @@ export class Admin extends React.Component {
                     <Header as="h4">Email:</Header>
                   </GridColumn>
                 </Grid.Row>
-                <AdminUserView />
+                {this.props.users
+                  ? this.props.users.map(user => {
+                      return (
+                        <AdminUserView
+                          key={user.id}
+                          user={user}
+                          toggleAdmin={this.props.toggleAdmin}
+                        />
+                      )
+                    })
+                  : ''}
               </Grid>
             </Accordion.Content>
           </Accordion>
@@ -207,14 +227,19 @@ export class Admin extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.admin.products
+    products: state.admin.products,
+    users: state.admin.users
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     getProducts: () => dispatch(getProducts()),
-    createProduct: newProduct => dispatch(createProduct(newProduct))
+    createProduct: newProduct => dispatch(createProduct(newProduct)),
+    submitUpdate: updatedProduct => dispatch(submitUpdate(updatedProduct)),
+    removeProduct: productId => dispatch(removeProduct(productId)),
+    getUsers: () => dispatch(getUsers()),
+    toggleAdmin: userId => dispatch(toggleAdmin(userId))
   }
 }
 
