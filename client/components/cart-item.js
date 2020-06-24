@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Input, Header, Divider, Image} from 'semantic-ui-react'
+import {Button, Input, Header, Divider, Image, Item} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 export default class CartItem extends React.Component {
@@ -38,42 +38,58 @@ export default class CartItem extends React.Component {
   }
 
   render() {
+    console.log('props in cart', this.props)
     return (
       <div className="cart-item">
-        <Image src="/stock_image.png" />
-        <div className="product-details">
-          <Header as="a">{this.props.name}</Header>
-          <Header as="h5">${this.props.price / 100} each</Header>
-        </div>
-        <div className="quantity-selection">
-          <label htmlFor="quantity">
-            <Header>Quantity</Header>
-          </label>
-          <Input size="mini" action>
-            <input className="quantity-selection" value={this.state.quantity} />
-            <Button.Group basic vertical>
-              <Button
-                className="quantity-selection"
-                value={1}
-                icon="angle up"
-                onClick={this.handleQtyIncrease}
-              />
-              <Button
-                className="quantity-selection"
-                value={-1}
-                icon="angle down"
-                onClick={this.handleQtyDecrease}
-              />
-            </Button.Group>
-          </Input>
-        </div>
-        <div className="item-total">
-          <Header>Item Total: ${this.props.productSubtotal / 100}</Header>
-        </div>
-        <div className="remove-item">
-          <Button onClick={this.handleDelete} icon="x" />
-        </div>
-        <Divider />
+        <Item.Group>
+          <Item>
+            <Item.Image size="tiny" src={this.props.image} />
+
+            <Item.Content>
+              <Item.Header as="h1">{this.props.name}</Item.Header>
+              <Item.Extra as="p">${this.props.price / 100} each</Item.Extra>
+              <Item.Extra>
+                <div className="quantity-selection">
+                  <label htmlFor="quantity">
+                    <div>Quantity</div>
+                  </label>
+                  <Input size="mini" action>
+                    <Button
+                      className="remove-item"
+                      onClick={this.handleDelete}
+                      icon="x"
+                    />
+                    <input
+                      className="quantity-selection"
+                      value={this.state.quantity}
+                    />
+                    <Button.Group basic vertical>
+                      <Button
+                        className="quantity-selection"
+                        value={1}
+                        icon="angle up"
+                        onClick={this.handleQtyIncrease}
+                      />
+                      <Button
+                        className="quantity-selection"
+                        value={-1}
+                        icon="angle down"
+                        onClick={this.handleQtyDecrease}
+                      />
+                    </Button.Group>
+                  </Input>
+                </div>
+                <div className="item-total">
+                  <Header>
+                    Item Total: ${this.props.productSubtotal / 100}
+                  </Header>
+                </div>
+
+                <Divider />
+              </Item.Extra>
+            </Item.Content>
+          </Item>
+        </Item.Group>
       </div>
     )
   }
