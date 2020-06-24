@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Menu, Button} from 'semantic-ui-react'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin, firstName}) => (
   <div>
     <nav>
       {isLoggedIn ? (
@@ -30,6 +30,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           </Menu.Item>
           <Menu.Item position="right">
             <Button.Group>
+              <Button>{`Hello ${firstName}!`} </Button>
               <Button onClick={handleClick}>Logout</Button>
             </Button.Group>
           </Menu.Item>
@@ -49,7 +50,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
               <Button inverted as={Link} to="/login">
                 Login
               </Button>
-
               <Button inverted as={Link} to="/signup">
                 Sign Up
               </Button>
