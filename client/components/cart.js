@@ -21,7 +21,7 @@ export class Cart extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container className="main-content-section">
         <Grid divided="vertically">
           {this.props.products ? (
             this.props.products.length ? (

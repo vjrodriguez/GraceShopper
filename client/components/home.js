@@ -19,7 +19,7 @@ const randomNumber = (min, max) => {
 
 export const Homepage = () => {
   return (
-    <div>
+    <div className="main-content-section">
       <Container textAlign="center" fluid id="homepage-banner">
         <Header as="h1" id="page-title-home">
           Polish'd

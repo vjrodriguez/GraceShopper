@@ -11,7 +11,7 @@ export class AllProducts extends React.Component {
 
   render() {
     return (
-      <Card.Group itemsPerRow={3}>
+      <Card.Group itemsPerRow={3} className="main-content-section">
         {this.props.products
           ? this.props.products.map(product => {
               return (

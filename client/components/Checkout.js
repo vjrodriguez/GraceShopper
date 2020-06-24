@@ -28,7 +28,7 @@ export class Checkout extends Component {
     const currentOrder = this.props.order
     const currentTotal = makeTotalStr(this.props.total)
     return currentOrder ? (
-      <div>
+      <div className="main-content-section">
         <Segment inverted>
           <Header as="h1" inverted clor="grey">
             Order Summary
