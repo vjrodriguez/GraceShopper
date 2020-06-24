@@ -5,6 +5,7 @@ export default class AdminUpdateProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: this.props.product.id,
       name: this.props.product.name,
       colorFamily: this.props.product.colorFamily,
       description: this.props.product.description,
@@ -16,6 +17,8 @@ export default class AdminUpdateProduct extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.close = this.close.bind(this)
     this.open = this.open.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleChange(e) {
@@ -28,6 +31,16 @@ export default class AdminUpdateProduct extends React.Component {
 
   open() {
     this.setState({open: true})
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.submitUpdate(this.state)
+  }
+
+  handleDelete() {
+    this.props.removeProduct(this.state.id)
+    this.setState({open: false})
   }
 
   render() {
@@ -82,7 +95,7 @@ export default class AdminUpdateProduct extends React.Component {
           />
         </Grid.Column>
         <Grid.Column>
-          <Button>Save Updates</Button>
+          <Button onClick={this.handleSubmit}>Save Updates</Button>
         </Grid.Column>
         <Grid.Column>
           <Modal
@@ -99,7 +112,7 @@ export default class AdminUpdateProduct extends React.Component {
               <Button basic color="red" inverted onClick={this.close}>
                 <Icon name="remove" /> Cancel
               </Button>
-              <Button color="green" inverted onClick={this.close}>
+              <Button color="green" inverted onClick={this.handleDelete}>
                 <Icon name="checkmark" /> Yes
               </Button>
             </Modal.Actions>

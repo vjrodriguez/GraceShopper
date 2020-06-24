@@ -31,7 +31,7 @@ export const me = () => async dispatch => {
 }
 
 export const auth = (method, userInfo) => async dispatch => {
-  console.log('AUTH IS CALLED AUTH IS CALLED')
+  console.log(userInfo)
   try {
     const {data} = await axios.post(`/auth/${method}`, userInfo)
     dispatch(getUser(data))

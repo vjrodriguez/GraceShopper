@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Menu, Button} from 'semantic-ui-react'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin, firstName}) => (
   <div>
     <nav>
       {isLoggedIn ? (
@@ -19,10 +19,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <Button inverted as={Link} to="/cart">
                 Cart
               </Button>
+              {isAdmin ? (
+                <Button inverted as={Link} to="/admin">
+                  Admin
+                </Button>
+              ) : (
+                ''
+              )}
             </Button.Group>
           </Menu.Item>
           <Menu.Item position="right">
             <Button.Group>
+              <Button>{`Hello ${firstName}!`} </Button>
               <Button onClick={handleClick}>Logout</Button>
             </Button.Group>
           </Menu.Item>
@@ -42,7 +50,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <Button inverted as={Link} to="/login">
                 Login
               </Button>
-
               <Button inverted as={Link} to="/signup">
                 Sign Up
               </Button>
@@ -60,7 +67,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    firstName: state.firstName
+    isAdmin: state.user.isAdmin,
+    firstName: state.user.firstName
   }
 }
 
@@ -79,5 +87,6 @@ export default connect(mapState, mapDispatch)(Navbar)
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 }
