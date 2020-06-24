@@ -73,7 +73,7 @@ router.delete('/products/:id', checkIfAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/users', async (req, res, next) => {
+router.get('/users', checkIfAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ['id', 'email', 'firstName', 'lastName', 'isAdmin']
@@ -84,7 +84,7 @@ router.get('/users', async (req, res, next) => {
   }
 })
 
-router.put('/users/:id', async (req, res, next) => {
+router.put('/users/:id', checkIfAdmin, async (req, res, next) => {
   try {
     const updatedUser = await User.findByPk(req.params.id)
     updatedUser.isAdmin
