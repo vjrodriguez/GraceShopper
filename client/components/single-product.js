@@ -4,6 +4,7 @@ import {getSingleProduct} from '../store/singleProduct'
 import {addToCart} from '../store/cart'
 import {Card, Icon, Image} from 'semantic-ui-react'
 import makeTotalStr from '../../script/makeTotalStr'
+import {Link} from 'react-router-dom'
 
 export class SingleProduct extends React.Component {
   constructor(props) {

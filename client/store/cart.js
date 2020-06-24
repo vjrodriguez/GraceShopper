@@ -27,8 +27,10 @@ const updateCart = cart => ({
 export const addToCart = (path, newProduct) => async dispatch => {
   try {
     await axios.post(path, newProduct)
+    history.push('/cart')
   } catch (error) {
     console.log(error)
+    history.push('/login')
   }
 }
 
