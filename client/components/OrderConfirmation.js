@@ -4,7 +4,7 @@ import {Segment, Button} from 'semantic-ui-react'
 
 const OrderConfirmation = () => {
   return (
-    <div>
+    <div className="main-content-section">
       <Segment inverted>
         <h2>Your order has been placed!</h2>
         <h3>Thanks for getting polish'd with us</h3>

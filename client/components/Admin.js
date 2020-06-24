@@ -51,7 +51,7 @@ export class Admin extends React.Component {
     const {activeIndex} = this.state
     console.log('PROPS', this.props)
     return (
-      <Grid divided="vertically">
+      <Grid divided="vertically" className="main-content-section">
         <Grid.Row columns={3}>
           <Grid.Column textAlign="center">
             <Statistic>

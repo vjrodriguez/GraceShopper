@@ -6,7 +6,7 @@ import {logout} from '../store'
 import {Menu, Button} from 'semantic-ui-react'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin, firstName}) => (
-  <div>
+  <div id="main-nav">
     <nav>
       {isLoggedIn ? (
         <Menu inverted>

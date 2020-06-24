@@ -19,7 +19,7 @@ const randomNumber = (min, max) => {
 
 export const Homepage = () => {
   return (
-    <div>
+    <div className="main-content-section">
       <Container textAlign="center" fluid id="homepage-banner">
         <Header as="h1" id="page-title-home">
           Polish'd
@@ -36,13 +36,16 @@ export const Homepage = () => {
       >
         <Slider>
           <Slide index={0}>
-            <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} />
+            {/* <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} /> */}
+            <Image src="Panel1.png" />
           </Slide>
           <Slide index={1}>
-            <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} />
+            {/* <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} /> */}
+            <Image src="Panel2.png" />
           </Slide>
           <Slide index={2}>
-            <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} />
+            {/* <Image src={`${Math.floor(randomNumber(1, 22))}.JPEG`} /> */}
+            <Image src="Panel3.png" />
           </Slide>
         </Slider>
         <Divider />

@@ -35,7 +35,7 @@ export class SingleProduct extends React.Component {
   render() {
     let product = this.props.product
     return (
-      <div>
+      <div className="main-content-section">
         {product ? (
           <Card centered>
             <Image src={product.imageUrl} wrapped ui={false} />

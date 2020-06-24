@@ -45,3 +45,11 @@ input.quantity-selection {
 #homepage-banner {
   height: 14em;
 }
+
+.main-content-section {
+  padding: 10px;
+}
+
+#main-nav {
+  margin-bottom: 15px;
+}

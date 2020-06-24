@@ -10,7 +10,7 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
   if (name === 'login') {
     return (
-      <div>
+      <div className="main-content-section">
         <form onSubmit={handleSubmit} name={name}>
           <div>
             <label htmlFor="email">
@@ -34,7 +34,7 @@ const AuthForm = props => {
     )
   } else if (name === 'signup') {
     return (
-      <div>
+      <div className="main-content-section">
         <form onSubmit={handleSubmit} name={name}>
           <div>
             <label htmlFor="firstName">
