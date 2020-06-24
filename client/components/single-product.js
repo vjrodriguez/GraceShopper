@@ -39,7 +39,7 @@ export class SingleProduct extends React.Component {
           <Card centered>
             <Image src={product.imageUrl} wrapped ui={false} />
             <Card.Content>
-              <Card.Header>{product.name}</Card.Header>
+              <Card.Header>{product.name.toUpperCase()}</Card.Header>
               <Card.Description>{product.description}</Card.Description>
               <Card.Meta>
                 <span className="date">${makeTotalStr(product.price)}</span>

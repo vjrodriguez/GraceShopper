@@ -19,7 +19,7 @@ export class AllProducts extends React.Component {
                   <Image src={product.imageUrl} wrapped ui={false} />
                   <CardContent centered="true" className="product">
                     <Card.Header as={Link} to={`/products/${product.id}`}>
-                      {product.name}
+                      {product.name.toUpperCase()}
                     </Card.Header>
                   </CardContent>
                 </Card>
