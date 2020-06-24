@@ -1,6 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Container, Icon, Header} from 'semantic-ui-react'
+import {
+  Button,
+  Container,
+  Icon,
+  Header,
+  Grid,
+  Segment,
+  Divider
+} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {fetchCart, updateQty, removeProduct} from '../store/cart'
 import CartItem from './cart-item'
@@ -14,16 +22,17 @@ export class Cart extends React.Component {
   render() {
     return (
       <Container>
-        {this.props.products
-          ? this.props.products.length
-            ? this.props.products.map(product => {
+        <Grid divided="vertically">
+          {this.props.products ? (
+            this.props.products.length ? (
+              this.props.products.map(product => {
                 return (
                   <CartItem
                     key={product.id}
                     orderId={product.product_order.orderId}
                     productId={product.id}
                     image={product.imageUrl}
-                    name={product.name}
+                    name={product.name.toUpperCase()}
                     price={product.price}
                     quantity={product.product_order.quantity}
                     productSubtotal={product.product_order.productSubtotal}
@@ -33,8 +42,19 @@ export class Cart extends React.Component {
                   />
                 )
               })
-            : "You haven't added any item yet"
-          : ''}
+            ) : (
+              <Grid.Row columns={1}>
+                <Grid.Column textAlign="center">
+                  <Segment>
+                    You haven't added anything to your cart yet!
+                  </Segment>
+                </Grid.Column>
+              </Grid.Row>
+            )
+          ) : (
+            ''
+          )}
+        </Grid>
         <Header textAlign="right">
           Total Price: ${makeTotalStr(this.props.orderTotal)}
         </Header>

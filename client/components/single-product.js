@@ -4,6 +4,7 @@ import {getSingleProduct} from '../store/singleProduct'
 import {addToCart} from '../store/cart'
 import {Card, Icon, Image} from 'semantic-ui-react'
 import makeTotalStr from '../../script/makeTotalStr'
+import {Link} from 'react-router-dom'
 
 export class SingleProduct extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export class SingleProduct extends React.Component {
           <Card centered>
             <Image src={product.imageUrl} wrapped ui={false} />
             <Card.Content>
-              <Card.Header>{product.name}</Card.Header>
+              <Card.Header>{product.name.toUpperCase()}</Card.Header>
               <Card.Description>{product.description}</Card.Description>
               <Card.Meta>
                 <span className="date">${makeTotalStr(product.price)}</span>
