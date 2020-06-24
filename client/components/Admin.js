@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {
   Grid,
   Statistic,
@@ -13,8 +14,17 @@ import {
 import AdminUpdateProduct from './AdminUpdateProduct'
 import AdminAddProduct from './AdminAddProduct'
 import AdminUserView from './AdminUserView'
+import {
+  createProduct,
+  getProducts,
+  submitUpdate,
+  removeProduct,
+  getUsers,
+  toggleAdmin,
+  fetchStats
+} from '../store/admin'
 
-export default class Admin extends React.Component {
+export class Admin extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -30,27 +40,40 @@ export default class Admin extends React.Component {
     this.setState({activeIndex: newIndex})
   }
 
+  componentDidMount() {
+    this.props.getProducts()
+    this.props.getUsers()
+    this.props.fetchStats()
+  }
+
   render() {
     const {activeIndex} = this.state
-
+    console.log('PROPS', this.props)
     return (
       <Grid divided="vertically">
         <Grid.Row columns={3}>
           <Grid.Column textAlign="center">
             <Statistic>
-              <Statistic.Value>50</Statistic.Value>
+              <Statistic.Value>
+                {this.props.users ? this.props.users.length : 0}
+              </Statistic.Value>
               <Statistic.Label>User Accounts</Statistic.Label>
             </Statistic>
           </Grid.Column>
           <Grid.Column textAlign="center">
             <Statistic>
-              <Statistic.Value>257</Statistic.Value>
+              <Statistic.Value>
+                {this.props.totalQty ? this.props.totalQty : 0}
+              </Statistic.Value>
               <Statistic.Label>Products Sold</Statistic.Label>
             </Statistic>
           </Grid.Column>
           <Grid.Column textAlign="center">
             <Statistic>
-              <Statistic.Value>$2,400</Statistic.Value>
+              <Statistic.Value>
+                {' '}
+                {this.props.totalRev ? `$${this.props.totalRev / 100}` : '$0'}
+              </Statistic.Value>
               <Statistic.Label>Total Revenue</Statistic.Label>
             </Statistic>
           </Grid.Column>
@@ -87,9 +110,20 @@ export default class Admin extends React.Component {
                     <Header as="h4">Image:</Header>
                   </GridColumn>
                 </Grid.Row>
-                <AdminUpdateProduct />
+                {this.props.products
+                  ? this.props.products.map(product => {
+                      return (
+                        <AdminUpdateProduct
+                          product={product}
+                          submitUpdate={this.props.submitUpdate}
+                          key={product.id}
+                          removeProduct={this.props.removeProduct}
+                        />
+                      )
+                    })
+                  : ''}
                 <Grid.Row columns={1}>
-                  <AdminAddProduct />
+                  <AdminAddProduct createProduct={this.props.createProduct} />
                 </Grid.Row>
               </Grid>
             </Accordion.Content>
@@ -107,7 +141,7 @@ export default class Admin extends React.Component {
             </Accordion.Title>
             <Accordion.Content active={activeIndex === 1}>
               <Grid>
-                <Grid.Row columns={6}>
+                {/* <Grid.Row columns={6}>
                   <Grid.Column>
                     <Dropdown
                       placeholder="Last Name"
@@ -118,13 +152,13 @@ export default class Admin extends React.Component {
                         {
                           key: 'LastName1',
                           text: 'LastName1',
-                          value: 'LastName1'
+                          value: 'LastName1',
                         },
                         {
                           key: 'LastName2',
                           text: 'LastName2',
-                          value: 'LastName2'
-                        }
+                          value: 'LastName2',
+                        },
                       ]}
                     />
                   </Grid.Column>
@@ -138,13 +172,13 @@ export default class Admin extends React.Component {
                         {
                           key: 'Email1',
                           text: 'Email1',
-                          value: 'Email1'
+                          value: 'Email1',
                         },
                         {
                           key: 'Email2',
                           text: 'Email2',
-                          value: 'Email2'
-                        }
+                          value: 'Email2',
+                        },
                       ]}
                     />
                   </Grid.Column>
@@ -158,17 +192,17 @@ export default class Admin extends React.Component {
                         {
                           key: 'Admin',
                           text: 'Admin',
-                          value: 'Admin'
+                          value: 'Admin',
                         },
                         {
                           key: 'Not Admin',
                           text: 'Not Admin',
-                          value: 'Not Admin'
-                        }
+                          value: 'Not Admin',
+                        },
                       ]}
                     />
                   </Grid.Column>
-                </Grid.Row>
+                </Grid.Row> */}
                 <Grid.Row columns={5}>
                   <GridColumn>
                     <Header as="h4">First Name:</Header>
@@ -180,7 +214,17 @@ export default class Admin extends React.Component {
                     <Header as="h4">Email:</Header>
                   </GridColumn>
                 </Grid.Row>
-                <AdminUserView />
+                {this.props.users
+                  ? this.props.users.map(user => {
+                      return (
+                        <AdminUserView
+                          key={user.id}
+                          user={user}
+                          toggleAdmin={this.props.toggleAdmin}
+                        />
+                      )
+                    })
+                  : ''}
               </Grid>
             </Accordion.Content>
           </Accordion>
@@ -189,3 +233,26 @@ export default class Admin extends React.Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    products: state.admin.products,
+    users: state.admin.users,
+    totalRev: state.admin.totalRev,
+    totalQty: state.admin.totalQty
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getProducts: () => dispatch(getProducts()),
+    createProduct: newProduct => dispatch(createProduct(newProduct)),
+    submitUpdate: updatedProduct => dispatch(submitUpdate(updatedProduct)),
+    removeProduct: productId => dispatch(removeProduct(productId)),
+    getUsers: () => dispatch(getUsers()),
+    toggleAdmin: userId => dispatch(toggleAdmin(userId)),
+    fetchStats: () => dispatch(fetchStats())
+  }
+}
+
+export default connect(mapState, mapDispatch)(Admin)

@@ -2,28 +2,23 @@ import React from 'react'
 import {Grid, Input, Form, Button, Modal, Icon, Header} from 'semantic-ui-react'
 
 export default class AdminUpdateProduct extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      name: 'productname',
-      colorFamily: 'blue',
-      description: 'a description',
-      price: '900',
-      stock: '80',
-      imageUrl: 'a URL',
+      id: this.props.product.id,
+      name: this.props.product.name,
+      colorFamily: this.props.product.colorFamily,
+      description: this.props.product.description,
+      price: this.props.product.price,
+      stock: this.props.product.stock,
+      imageUrl: this.props.product.imageUrl,
       open: false
-
-      // name: this.props.name,
-      // colorFamily: this.props.colorFamily,
-      // description: this.props.description,
-      // price: this.props.price,
-      // stock: this.props.stock,
-      // imageUrl: this.props.imageUrl,
-      // open: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.close = this.close.bind(this)
     this.open = this.open.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleChange(e) {
@@ -36,6 +31,16 @@ export default class AdminUpdateProduct extends React.Component {
 
   open() {
     this.setState({open: true})
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.submitUpdate(this.state)
+  }
+
+  handleDelete() {
+    this.props.removeProduct(this.state.id)
+    this.setState({open: false})
   }
 
   render() {
@@ -90,7 +95,7 @@ export default class AdminUpdateProduct extends React.Component {
           />
         </Grid.Column>
         <Grid.Column>
-          <Button>Save Updates</Button>
+          <Button onClick={this.handleSubmit}>Save Updates</Button>
         </Grid.Column>
         <Grid.Column>
           <Modal
@@ -107,7 +112,7 @@ export default class AdminUpdateProduct extends React.Component {
               <Button basic color="red" inverted onClick={this.close}>
                 <Icon name="remove" /> Cancel
               </Button>
-              <Button color="green" inverted onClick={this.close}>
+              <Button color="green" inverted onClick={this.handleDelete}>
                 <Icon name="checkmark" /> Yes
               </Button>
             </Modal.Actions>
