@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //also import the thunks needed from the store
 import {Header, Button, Segment, Form, Icon} from 'semantic-ui-react'
+import makeTotalStr from '../../script/makeTotalStr'
 
 export class Checkout extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -24,9 +25,8 @@ export class Checkout extends Component {
   }
 
   render() {
-    console.log('PROPS!!!', this.props)
     const currentOrder = this.props.order
-    const currentTotal = this.props.total / 100
+    const currentTotal = makeTotalStr(this.props.total)
     return currentOrder ? (
       <div>
         <Segment inverted>

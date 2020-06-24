@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, Input, Header, Divider, Image, Item} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import makeTotalStr from '../../script/makeTotalStr'
 
 export default class CartItem extends React.Component {
   constructor(props) {
@@ -47,7 +47,9 @@ export default class CartItem extends React.Component {
 
             <Item.Content>
               <Item.Header as="h1">{this.props.name}</Item.Header>
-              <Item.Extra as="p">${this.props.price / 100} each</Item.Extra>
+              <Item.Extra as="p">
+                ${makeTotalStr(this.props.price)} each
+              </Item.Extra>
               <Item.Extra>
                 <div className="quantity-selection">
                   <label htmlFor="quantity">
@@ -81,7 +83,7 @@ export default class CartItem extends React.Component {
                 </div>
                 <div className="item-total">
                   <Header>
-                    Item Total: ${this.props.productSubtotal / 100}
+                    Item Total: ${makeTotalStr(this.props.productSubtotal)}
                   </Header>
                 </div>
 

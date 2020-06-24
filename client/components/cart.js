@@ -4,6 +4,7 @@ import {Button, Container, Icon, Header} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {fetchCart, updateQty, removeProduct} from '../store/cart'
 import CartItem from './cart-item'
+import makeTotalStr from '../../script/makeTotalStr'
 
 export class Cart extends React.Component {
   componentDidMount() {
@@ -35,7 +36,7 @@ export class Cart extends React.Component {
             : "You haven't added any item yet"
           : ''}
         <Header textAlign="right">
-          Total Price: ${this.props.orderTotal / 100}
+          Total Price: ${makeTotalStr(this.props.orderTotal)}
         </Header>
         <Button as={Link} to="/products" animated="vertical">
           <Button.Content visible>Keep Shopping</Button.Content>
