@@ -23,6 +23,7 @@ import {
   toggleAdmin,
   fetchStats
 } from '../store/admin'
+import makeTotalStr from '../../script/makeTotalStr'
 
 export class Admin extends React.Component {
   constructor() {
@@ -72,7 +73,9 @@ export class Admin extends React.Component {
             <Statistic>
               <Statistic.Value>
                 {' '}
-                {this.props.totalRev ? `$${this.props.totalRev / 100}` : '$0'}
+                {this.props.totalRev
+                  ? `$${makeTotalStr(this.props.totalRev)}`
+                  : '$0'}
               </Statistic.Value>
               <Statistic.Label>Total Revenue</Statistic.Label>
             </Statistic>

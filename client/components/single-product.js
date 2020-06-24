@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getSingleProduct} from '../store/singleProduct'
 import {addToCart} from '../store/cart'
 import {Card, Icon, Image} from 'semantic-ui-react'
+import makeTotalStr from '../../script/makeTotalStr'
 
 export class SingleProduct extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ export class SingleProduct extends React.Component {
               <Card.Header>{product.name}</Card.Header>
               <Card.Description>{product.description}</Card.Description>
               <Card.Meta>
-                <span className="date">${product.price / 100}</span>
+                <span className="date">${makeTotalStr(product.price)}</span>
               </Card.Meta>
             </Card.Content>
             <Card.Content extra>
