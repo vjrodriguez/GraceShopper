@@ -1,4 +1,4 @@
-# polish'd
+# Polish'd
 
 _Good things come in pairs_
 
